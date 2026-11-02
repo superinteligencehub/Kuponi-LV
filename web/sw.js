@@ -1,8 +1,8 @@
 /* Kuponi LV service worker: офлайн-режим, утренний дайджест (push / periodic sync). */
 importScripts('config.js');
 
-const VERSION = 'kuponi-v2';
-const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'glossary.js', 'config.js', 'manifest.webmanifest', 'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png'];
+const VERSION = 'kuponi-v3';
+const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'glossary.js', 'taxonomy.js', 'config.js', 'manifest.webmanifest', 'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png'];
 const CFG = self.KUPONI_CONFIG || {};
 const DATA_URL = new URL(CFG.dataUrl || '../data/coupons.json', self.registration.scope).href;
 const TZ = 'Europe/Riga';

@@ -1,9 +1,10 @@
 import { WORDS } from './glossary.js';
+import { SECTIONS, SECTION_BY_ID, classify } from './taxonomy.js';
 
 const CFG = self.KUPONI_CONFIG ?? {};
 const DATA_URL = CFG.dataUrl ?? '../data/coupons.json';
 const TZ = 'Europe/Riga';
-const PAGE = 30;
+const PAGE = 24;
 
 const CAT_ICONS = { groceries: '🛒', kids: '🧸', fastfood: '🍔', auto: '⛽', electronics: '🔌', home: '🏠', beauty: '💄', fashion: '👗', sport: '⚽', pets: '🐾', books: '📚', fun: '🎬', delivery: '🛵', telecom: '📶', travel: '✈️', other: '🎟️' };
 const STORE_COLORS = {
@@ -44,7 +45,7 @@ function toast(msg, ms = 2600) {
 }
 
 // ---------- состояние ----------
-const DEFAULT_FILTERS = { cat: 'all', stores: [], endsToday: false, myOnly: false, minPct: 0, minEur: 0, noCard: false, hideUpcoming: false, onlyDiscounts: false, sort: 'eur' };
+const DEFAULT_FILTERS = { stores: [], endsToday: false, myOnly: false, minPct: 0, minEur: 0, noCard: false, hideUpcoming: false, onlyDiscounts: false, sort: 'eur' };
 const S = {
   data: null,
   all: [],
@@ -54,6 +55,8 @@ const S = {
   myStores: new Set(store.get('myStores', [])),
   manual: store.get('manual', []),
   view: 'feed',
+  sec: null, // null — главная; 'all' или id раздела
+  sub: '',
   feedItems: [],
   feedShown: 0,
 };
@@ -96,7 +99,8 @@ async function loadData({ force = false } = {}) {
   const when = new Intl.DateTimeFormat('ru-RU', { timeZone: TZ, day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(gen);
   const ok = data.sources.filter((s) => s.status === 'ok').length;
   const auto = data.sources.filter((s) => s.mode === 'auto').length;
-  $('#updated').textContent = `Обновлено ${when} · ${S.all.length} предложений · источники ${ok}/${auto}`;
+  $('#updated').textContent = `${S.all.length} предложений · обновлено ${when}`;
+  $('#updated').title = `Источники: ${ok} из ${auto} работают`;
   renderAll();
 }
 
@@ -104,6 +108,12 @@ function rebuildAll() {
   const manual = S.manual.map((m) => ({ ...m, manual: true, local: true }));
   // Просроченное скрываем (и в данных, и в ручных купонах)
   S.all = [...(S.data?.coupons ?? []), ...manual].filter((c) => !c.validTo || c.validTo >= S.today);
+  // Раздел по самому товару, а не по магазину (порошок из Maxima → «Бытовая химия»)
+  for (const c of S.all) {
+    const r = classify(c);
+    c._sec = r.sec;
+    c._sub = r.sub;
+  }
 }
 
 const isActiveToday = (c) => !c.validFrom || c.validFrom <= S.today;
@@ -156,8 +166,8 @@ function cardHtml(c) {
     ${thumb}
     <div class="head">
       <span class="store-tag" style="--c:${color}"><span class="store-dot"></span>${esc(c.store)}</span>
-      <p class="title-lv">${esc(c.title)}</p>
-      ${c.titleRu && c.titleRu !== c.title ? `<p class="title-ru">${esc(c.titleRu)}</p>` : ''}
+      <p class="title-lv">${esc(c.titleRu && c.titleRu !== c.title ? c.titleRu : c.title)}</p>
+      ${c.titleRu && c.titleRu !== c.title ? `<p class="title-ru">${esc(c.title)}</p>` : ''}
     </div>
     <div>${price}</div>
     <div class="badges">${badges.join('')}</div>
@@ -166,14 +176,98 @@ function cardHtml(c) {
   </article>`;
 }
 
+const UNIT_RU = { gab: 'шт', l: 'л', kg: 'кг' };
+const REQ_ICON = (r) => (r.startsWith('card:') ? '💳' : '📱');
+
+/** Компактная карточка для сетки и полок. */
+function tileHtml(c) {
+  const fav = S.favorites.has(c.id);
+  const sec = SECTION_BY_ID[c._sec];
+  const img = c.photo || c.image;
+  const icon = sec?.icon ?? '🏷️';
+  const pic = img
+    ? `<img src="${esc(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-ph="${icon}">`
+    : `<span class="ph" aria-hidden="true">${icon}</span>`;
+  const pct = c.savingPct ? `<span class="tile-badge">−${c.savingPct}%</span>` : '';
+  let flag = '';
+  if (c.kind !== 'price' && c.kind !== 'catalog' && c.validTo === S.today) flag = '<span class="tile-flag hot">⏰ последний день</span>';
+  else if (c.validFrom && c.validFrom > S.today) flag = `<span class="tile-flag">с ${ddmm(c.validFrom)}</span>`;
+  else if (c.kind === 'catalog' && c.validTo) flag = `<span class="tile-flag">до ${ddmm(c.validTo)}</span>`;
+  const ru = c.titleRu && c.titleRu !== c.title ? c.titleRu : '';
+  const price = c.priceNew != null
+    ? `<div class="tile-price"><b>${eur(c.priceNew)}</b>${c.priceOld ? `<s>${eur(c.priceOld)}</s>` : ''}</div>`
+    : c.kind === 'catalog' ? '<div class="tile-price"><b class="cat">📖 Буклет</b></div>' : '';
+  const save = c.savingEur
+    ? `<div class="tile-save">выгода ${eurShort(c.savingEur)}</div>`
+    : c.unitPrice ? `<div class="tile-unit">${eur(c.unitPrice.value)}/${UNIT_RU[c.unitPrice.unit] ?? c.unitPrice.unit}</div>` : '';
+  const req = (c.requires ?? []).map((r) => `<span title="${esc(REQUIRES_RU[r] ?? r)}">${REQ_ICON(r)}</span>`).join('');
+  return `<article class="tile${c.stale ? ' stale' : ''}" data-open="${esc(c.id)}" tabindex="0" role="button" aria-label="${esc(ru || c.title)}">
+    <div class="tile-img">${pic}${pct}${flag}
+      <button class="fav-btn sm" data-fav="${esc(c.id)}" aria-pressed="${fav}" aria-label="${fav ? 'Убрать из избранного' : 'В избранное'}">${fav ? '★' : '☆'}</button>
+    </div>
+    <div class="tile-body">
+      <div class="tile-store" style="--c:${STORE_COLORS[c.source] ?? 'var(--accent)'}"><span class="store-dot"></span><span class="nm">${esc(c.store)}</span><span class="req">${req}</span></div>
+      ${price}${save}
+      <p class="tile-title">${esc(ru || c.title)}</p>
+      ${ru ? `<p class="tile-lv">${esc(c.title)}</p>` : ''}
+    </div>
+  </article>`;
+}
+
+function openDetail(id) {
+  const c = findCoupon(id);
+  if (!c) return;
+  const img = c.photo || c.image;
+  $('#detailBody').innerHTML = `${img ? `<img class="detail-img" src="${esc(img)}" alt="" referrerpolicy="no-referrer" data-ph="">` : ''}${cardHtml(c).replace('<details>', '<details open>')}`;
+  $('#detailDlg').showModal();
+}
+
 const findCoupon = (id) => S.all.find((c) => c.id === id) ?? S.favorites.get(id);
 
-// ---------- лента ----------
+// ---------- главная и разделы ----------
+const activeDeals = () => S.all.filter((c) => isActiveToday(c) && c.savingEur > 0 && !c.stale);
+
+function sectionCounts() {
+  const m = new Map();
+  for (const c of S.all) m.set(c._sec, (m.get(c._sec) ?? 0) + 1);
+  return m;
+}
+
+const shelfHtml = (title, items, go, total) =>
+  items.length
+    ? `<section class="shelf-wrap"><div class="shelf-head"><h3>${title}</h3>${go ? `<button class="link" data-go="${go}">Все ${total ?? ''} →</button>` : ''}</div><div class="shelf">${items.map(tileHtml).join('')}</div></section>`
+    : '';
+
+/** Главная: плитки разделов и «полки» с лучшими предложениями каждого раздела. */
+function renderHome() {
+  const counts = sectionCounts();
+  const maxPct = new Map();
+  for (const c of S.all) if (c.savingPct && isActiveToday(c)) maxPct.set(c._sec, Math.max(maxPct.get(c._sec) ?? 0, c.savingPct));
+  $('#secGrid').innerHTML = SECTIONS.filter((s) => counts.get(s.id))
+    .map((s) => `<button class="sec-tile" data-go="${s.id}" title="${esc(s.name)}"><span class="sec-icon">${s.icon}</span><span class="sec-name">${esc(s.short)}</span><span class="sec-meta">${counts.get(s.id)}${maxPct.get(s.id) ? ` · −${maxPct.get(s.id)}%` : ''}</span></button>`)
+    .join('') + `<button class="sec-tile all" data-go="all"><span class="sec-icon">🏷️</span><span class="sec-name">Всё</span><span class="sec-meta">${S.all.length}</span></button>`;
+
+  const deals = activeDeals().sort(SORTS.eur);
+  const my = S.myStores.size ? deals.filter((c) => S.myStores.has(c.store)) : [];
+  const ending = deals.filter((c) => endsToday(c));
+  let html = shelfHtml('🔥 Лучшее сегодня', deals.slice(0, 12), null)
+    + (my.length ? shelfHtml('⭐ В моих магазинах', my.slice(0, 12), null) : '')
+    + (ending.length ? shelfHtml(`⏰ Последний день (${ending.length})`, ending.slice(0, 12), null) : '');
+  for (const s of SECTIONS) {
+    if (s.id === 'catalogs') continue;
+    html += shelfHtml(`${s.icon} ${esc(s.name)}`, deals.filter((c) => c._sec === s.id).slice(0, 10), s.id, counts.get(s.id));
+  }
+  const cats = S.all.filter((c) => c._sec === 'catalogs').sort((a, b) => a.store.localeCompare(b.store));
+  html += shelfHtml('📖 Буклеты акций', cats, 'catalogs', cats.length);
+  $('#shelves').innerHTML = html;
+}
+
 function applyFilters(list) {
   const f = S.filters;
   const stores = new Set(f.stores);
   return list.filter((c) => {
-    if (f.cat !== 'all' && c.category !== f.cat) return false;
+    if (S.sec && S.sec !== 'all' && c._sec !== S.sec) return false;
+    if (S.sub && c._sub !== S.sub) return false;
     if (stores.size && !stores.has(c.store)) return false;
     if (f.myOnly && S.myStores.size && !S.myStores.has(c.store)) return false;
     if (f.endsToday && !endsToday(c)) return false;
@@ -194,21 +288,33 @@ const SORTS = {
   new: (a, b) => (b.firstSeen ?? '').localeCompare(a.firstSeen ?? '') || SORTS.eur(a, b),
 };
 
-function renderCats() {
-  const counts = S.all.reduce((m, c) => m.set(c.category, (m.get(c.category) ?? 0) + 1), new Map());
-  const cats = Object.entries(categories());
-  $('#catChips').innerHTML = [`<button class="chip" data-cat="all" aria-pressed="${S.filters.cat === 'all'}">Все<small>${S.all.length}</small></button>`]
-    .concat(cats.filter(([id]) => counts.get(id) || S.filters.cat === id).map(([id, name]) => `<button class="chip" data-cat="${id}" aria-pressed="${S.filters.cat === id}">${CAT_ICONS[id] ?? ''} ${esc(name)}<small>${counts.get(id) ?? 0}</small></button>`))
+/** Список раздела: подразделы, магазины, фильтры, сетка карточек. */
+function renderList() {
+  const sec = SECTION_BY_ID[S.sec];
+  $('#listTitle').textContent = sec ? `${sec.icon} ${sec.name}` : '🏷️ Все предложения';
+  const inSec = S.all.filter((c) => !S.sec || S.sec === 'all' || c._sec === S.sec);
+  const subCounts = new Map();
+  for (const c of inSec) subCounts.set(c._sub, (subCounts.get(c._sub) ?? 0) + 1);
+  const subs = (sec?.subs ?? []).filter(([id]) => subCounts.get(id));
+  $('#subChips').hidden = subs.length < 2;
+  $('#subChips').innerHTML = [`<button class="chip" data-sub="" aria-pressed="${!S.sub}">Все <small>${inSec.length}</small></button>`]
+    .concat(subs.map(([id, name]) => `<button class="chip" data-sub="${id}" aria-pressed="${S.sub === id}">${esc(name)} <small>${subCounts.get(id)}</small></button>`))
     .join('');
-}
+  const inSub = inSec.filter((c) => !S.sub || c._sub === S.sub);
+  const stCounts = new Map();
+  for (const c of inSub) stCounts.set(c.store, (stCounts.get(c.store) ?? 0) + 1);
+  const chosen = new Set(S.filters.stores);
+  const storesList = [...stCounts.entries()].sort((a, b) => b[1] - a[1]);
+  $('#storeChips').hidden = storesList.length < 2;
+  $('#storeChips').innerHTML = `<span class="chips-label">Магазин:</span>` + storesList
+    .map(([n, k]) => `<button class="chip sm${S.myStores.has(n) ? ' mine' : ''}" data-store="${esc(n)}" aria-pressed="${chosen.has(n)}">${esc(n)} <small>${k}</small></button>`)
+    .join('');
 
-function renderFeed() {
-  renderCats();
   const f = S.filters;
   $('#endsTodayQuick').checked = f.endsToday;
   $('#myStoresQuick').checked = f.myOnly;
   $('#sortSel').value = f.sort;
-  const active = ['stores', 'minPct', 'minEur', 'noCard', 'hideUpcoming', 'onlyDiscounts'].filter((k) => (Array.isArray(f[k]) ? f[k].length : f[k])).length;
+  const active = ['minPct', 'minEur', 'noCard', 'hideUpcoming', 'onlyDiscounts'].filter((k) => f[k]).length;
   $('#filterCount').hidden = !active;
   $('#filterCount').textContent = active;
   S.feedItems = applyFilters(S.all).sort(SORTS[f.sort] ?? SORTS.eur);
@@ -222,33 +328,50 @@ function renderFeed() {
   moreFeed();
 }
 
+function renderFeed() {
+  const home = !S.sec;
+  $('#homeView').hidden = !home;
+  $('#listView').hidden = home;
+  if (home) renderHome();
+  else renderList();
+}
+
 function moreFeed() {
   const next = S.feedItems.slice(S.feedShown, S.feedShown + PAGE);
   if (!next.length) return;
-  $('#feedList').insertAdjacentHTML('beforeend', next.map(cardHtml).join(''));
+  $('#feedList').insertAdjacentHTML('beforeend', next.map(tileHtml).join(''));
   S.feedShown += next.length;
+}
+
+/** Перейти в раздел (с записью в историю — кнопка «назад» на телефоне вернёт на главную). */
+function goSection(sec, sub = '') {
+  if (sec !== S.sec) S.filters.stores = [];
+  S.sec = sec || null;
+  S.sub = sub;
+  const h = S.sec ? `#feed/${S.sec}${sub ? `/${sub}` : ''}` : '#feed';
+  if (location.hash !== h) history.pushState({ sec: S.sec }, '', h);
+  if (S.view !== 'feed') show('feed', { keepHash: true });
+  else renderFeed();
+  window.scrollTo({ top: 0 });
 }
 
 // ---------- лучшее ----------
 function renderBest() {
   const scope = store.get('bestScope', 'all');
-  const hasMy = S.myStores.size > 0;
-  $('#bestScope').innerHTML = `<button class="chip" data-scope="all" aria-pressed="${scope === 'all' || !hasMy}">Все магазины</button>${
-    hasMy ? `<button class="chip" data-scope="my" aria-pressed="${scope === 'my'}">Мои магазины</button>` : ''}`;
-  let pool = S.all.filter((c) => isActiveToday(c) && c.savingEur > 0 && !c.stale);
-  if (scope === 'my' && hasMy) pool = pool.filter((c) => S.myStores.has(c.store));
-  const top = pool.sort(SORTS.eur).slice(0, 30);
-  $('#bestList').innerHTML = top.length ? top.map((c) => `<li>${cardHtml(c)}</li>`).join('') : '<p class="empty">Пока нет данных о выгоде.</p>';
-  let ending = S.all.filter((c) => endsToday(c) && (c.savingEur || c.savingPct));
-  if (scope === 'my' && hasMy) ending = ending.filter((c) => S.myStores.has(c.store));
-  ending.sort(SORTS.eur);
-  $('#endingTitle').textContent = `Заканчиваются сегодня (${ending.length})`;
-  $('#endingList').innerHTML = ending.slice(0, 20).map(cardHtml).join('') || '<p class="empty">Сегодня ничего не заканчивается.</p>';
-  let cats = S.all.filter((c) => c.kind === 'catalog');
-  if (scope === 'my' && hasMy) cats = cats.filter((c) => S.myStores.has(c.store));
-  cats.sort((a, b) => a.store.localeCompare(b.store));
-  $('#catalogTitle').textContent = `Буклеты акций (${cats.length})`;
-  $('#catalogList').innerHTML = cats.map(cardHtml).join('') || '<p class="empty">Нет действующих буклетов.</p>';
+  const counts = sectionCounts();
+  $('#bestScope').innerHTML = [`<button class="chip" data-scope="all" aria-pressed="${scope === 'all'}">Все</button>`]
+    .concat(S.myStores.size ? [`<button class="chip" data-scope="my" aria-pressed="${scope === 'my'}">⭐ Мои магазины</button>`] : [])
+    .concat(SECTIONS.filter((s) => s.id !== 'catalogs' && counts.get(s.id)).map((s) => `<button class="chip" data-scope="${s.id}" aria-pressed="${scope === s.id}">${s.icon} ${esc(s.name)}</button>`))
+    .join('');
+  const inScope = (c) => scope === 'all' || (scope === 'my' ? S.myStores.has(c.store) : c._sec === scope);
+  const top = activeDeals().filter(inScope).sort(SORTS.eur).slice(0, 30);
+  $('#bestList').innerHTML = top.length ? top.map(tileHtml).join('') : '<p class="empty">Пока нет данных о выгоде.</p>';
+  const ending = S.all.filter((c) => endsToday(c) && (c.savingEur || c.savingPct) && inScope(c)).sort(SORTS.eur);
+  $('#endingTitle').textContent = `⏰ Заканчиваются сегодня (${ending.length})`;
+  $('#endingList').innerHTML = ending.slice(0, 24).map(tileHtml).join('') || '<p class="empty">Сегодня ничего не заканчивается.</p>';
+  const cats = S.all.filter((c) => c.kind === 'catalog' && (scope === 'all' || (scope === 'my' && S.myStores.has(c.store)))).sort((a, b) => a.store.localeCompare(b.store));
+  $('#catalogTitle').textContent = `📖 Буклеты акций (${cats.length})`;
+  $('#catalogList').innerHTML = cats.map(tileHtml).join('') || '<p class="empty">Нет буклетов для выбранного раздела.</p>';
 }
 
 // ---------- поиск ----------
@@ -324,14 +447,14 @@ function renderSearch() {
   }
   const results = search(q).sort((a, b) => (a.unitPrice?.value ?? a.priceNew ?? 1e9) - (b.unitPrice?.value ?? b.priceNew ?? 1e9));
   $('#compare').innerHTML = (results.length && !S.searchExact ? '<p class="hint">Точных совпадений нет — показаны похожие предложения.</p>' : '') + renderCompare(results);
-  $('#searchList').innerHTML = results.length ? results.slice(0, 80).map(cardHtml).join('') : `<p class="empty">По запросу «${esc(q)}» ничего нет.</p>`;
+  $('#searchList').innerHTML = results.length ? results.slice(0, 80).map(tileHtml).join('') : `<p class="empty">По запросу «${esc(q)}» ничего нет.</p>`;
 }
 
 // ---------- избранное и мои магазины ----------
 function renderFav() {
   const favs = [...S.favorites.values()].map((f) => S.all.find((c) => c.id === f.id) ?? { ...f, stale: true });
   const active = favs.filter((c) => !c.validTo || c.validTo >= S.today);
-  $('#favList').innerHTML = active.length ? active.sort(SORTS.ends).map(cardHtml).join('') : '<p class="empty">Нажмите ☆ на купоне, чтобы сохранить его здесь.</p>';
+  $('#favList').innerHTML = active.length ? active.sort(SORTS.ends).map(tileHtml).join('') : '<p class="empty">Нажмите ☆ на купоне, чтобы сохранить его здесь.</p>';
   $('#myStoresGrid').innerHTML = storeNames()
     .map((n) => `<label><input type="checkbox" data-mystore="${esc(n)}" ${S.myStores.has(n) ? 'checked' : ''}><span>${esc(n)}</span></label>`)
     .join('');
@@ -455,7 +578,7 @@ async function setLocalDigest(on) {
 // ---------- ручной ввод ----------
 function renderManual() {
   const list = S.manual.filter((c) => !c.validTo || c.validTo >= S.today).map((m) => ({ ...m, manual: true, local: true }));
-  $('#manualList').innerHTML = list.map(cardHtml).join('');
+  $('#manualList').innerHTML = list.map(tileHtml).join('');
   $('#manualActions').hidden = !S.manual.length;
 }
 
@@ -563,13 +686,25 @@ async function ocrPhoto(file) {
 }
 
 // ---------- навигация ----------
-function show(view) {
+function show(view, { keepHash = false } = {}) {
   S.view = view;
   $$('.view').forEach((v) => { v.hidden = v.dataset.view !== view; });
   $$('.tabbar button').forEach((b) => b.classList.toggle('active', b.dataset.tab === view));
-  if (location.hash !== `#${view}`) history.replaceState(null, '', `#${view}`);
+  if (!keepHash && !location.hash.startsWith(`#${view}`)) history.replaceState(null, '', `#${view}`);
   renderView(view);
   window.scrollTo({ top: 0 });
+}
+
+/** #feed, #feed/food, #feed/food/dairy, #best … */
+function applyHash() {
+  const [view, sec = null, sub = ''] = location.hash.slice(1).split('/');
+  const v = $(`#view-${view}`) ? view : 'feed';
+  if (v === 'feed') {
+    S.sec = sec && (sec === 'all' || SECTION_BY_ID[sec]) ? sec : null;
+    S.sub = sub;
+  }
+  if (v !== S.view) show(v, { keepHash: true });
+  else renderView(v);
 }
 
 function renderView(view) {
@@ -586,23 +721,43 @@ function applyTheme(t) {
 
 // ---------- события ----------
 function bind() {
-  $$('.tabbar button').forEach((b) => b.addEventListener('click', () => show(b.dataset.tab)));
+  $$('.tabbar button').forEach((b) => b.addEventListener('click', () => {
+    // повторное нажатие на «Главная» возвращает к разделам
+    if (b.dataset.tab === 'feed' && (S.view === 'feed' || S.sec)) return goSection(null);
+    show(b.dataset.tab);
+  }));
 
   document.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-fav],[data-cat],[data-scope],[data-q],[data-addfor],[data-del]');
+    const t = e.target.closest('[data-fav],[data-scope],[data-q],[data-addfor],[data-del],[data-go],[data-goto],[data-sub],[data-store],[data-open]');
     if (!t) return;
     if (t.dataset.fav) return toggleFav(t.dataset.fav);
     if (t.dataset.addfor) return openManual({ store: t.dataset.addfor, category: t.dataset.cat });
     if (t.dataset.del) {
       S.manual = S.manual.filter((m) => m.id !== t.dataset.del);
       store.set('manual', S.manual);
+      $('#detailDlg').close();
       rebuildAll();
       return renderAll();
     }
-    if (t.dataset.cat && t.closest('#catChips')) {
-      S.filters.cat = t.dataset.cat;
+    if (t.dataset.go !== undefined) return goSection(t.dataset.go);
+    if (t.dataset.goto) {
+      show(t.dataset.goto);
+      if (t.dataset.goto === 'search') $('#searchInput').focus();
+      return;
+    }
+    if (t.dataset.sub !== undefined) {
+      S.sub = t.dataset.sub;
+      S.filters.stores = [];
+      history.replaceState(history.state, '', `#feed/${S.sec}${S.sub ? `/${S.sub}` : ''}`);
+      return renderList();
+    }
+    if (t.dataset.store !== undefined) {
+      const set = new Set(S.filters.stores);
+      if (set.has(t.dataset.store)) set.delete(t.dataset.store);
+      else set.add(t.dataset.store);
+      S.filters.stores = [...set];
       saveFilters();
-      return renderFeed();
+      return renderList();
     }
     if (t.dataset.scope) {
       store.set('bestScope', t.dataset.scope);
@@ -612,16 +767,32 @@ function bind() {
       $('#searchInput').value = t.dataset.q;
       return renderSearch();
     }
+    if (t.dataset.open) return openDetail(t.dataset.open);
   });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && e.target.matches?.('.tile[data-open]')) openDetail(e.target.dataset.open);
+  });
+  // картинка не загрузилась — показываем значок раздела
+  document.addEventListener('error', (e) => {
+    const img = e.target;
+    if (img.tagName !== 'IMG' || !img.hasAttribute('data-ph')) return;
+    if (!img.dataset.ph) return img.remove();
+    img.replaceWith(Object.assign(document.createElement('span'), { className: 'ph', textContent: img.dataset.ph }));
+  }, true);
+  $('#backBtn').addEventListener('click', () => {
+    if (history.state?.sec) history.back();
+    else goSection(null);
+  });
+  $('#detailDlg').addEventListener('click', (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
 
-  $('#endsTodayQuick').addEventListener('change', (e) => { S.filters.endsToday = e.target.checked; saveFilters(); renderFeed(); });
+  $('#endsTodayQuick').addEventListener('change', (e) => { S.filters.endsToday = e.target.checked; saveFilters(); renderList(); });
   $('#myStoresQuick').addEventListener('change', (e) => {
     S.filters.myOnly = e.target.checked;
     saveFilters();
     if (e.target.checked && !S.myStores.size) toast('Отметьте свои магазины во вкладке «Избранное»');
-    renderFeed();
+    renderList();
   });
-  $('#sortSel').addEventListener('change', (e) => { S.filters.sort = e.target.value; saveFilters(); renderFeed(); });
+  $('#sortSel').addEventListener('change', (e) => { S.filters.sort = e.target.value; saveFilters(); renderList(); });
 
   // Фильтры
   $('#filterBtn').addEventListener('click', () => {
@@ -642,7 +813,7 @@ function bind() {
   $('#minEur').addEventListener('input', (e) => { $('#minEurLabel').textContent = `${e.target.value} €`; });
   $('#filterDlg').addEventListener('close', () => {
     const v = $('#filterDlg').returnValue;
-    if (v === 'reset') S.filters = { ...DEFAULT_FILTERS, cat: S.filters.cat, sort: S.filters.sort };
+    if (v === 'reset') S.filters = { ...DEFAULT_FILTERS, sort: S.filters.sort };
     else if (v === 'ok') {
       Object.assign(S.filters, {
         stores: $$('#filterStores input:checked').map((i) => i.value),
@@ -656,11 +827,11 @@ function bind() {
       });
     } else return;
     saveFilters();
-    renderFeed();
+    renderList();
   });
 
   // Бесконечная лента
-  new IntersectionObserver((entries) => { if (entries[0].isIntersecting && S.view === 'feed') moreFeed(); }, { rootMargin: '600px' }).observe($('#feedMore'));
+  new IntersectionObserver((entries) => { if (entries[0].isIntersecting && S.view === 'feed' && S.sec) moreFeed(); }, { rootMargin: '600px' }).observe($('#feedMore'));
 
   // Поиск
   let tm;
@@ -723,7 +894,8 @@ function bind() {
 
   addEventListener('online', () => loadData());
   addEventListener('offline', () => { $('#offlineBanner').hidden = false; });
-  addEventListener('hashchange', () => { const v = location.hash.slice(1); if (v && v !== S.view && $(`#view-${v}`)) show(v); });
+  addEventListener('popstate', applyHash);
+  addEventListener('hashchange', applyHash);
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible' && rigaDate() !== S.today) loadData();
   });
@@ -732,8 +904,7 @@ function bind() {
 // ---------- старт ----------
 async function init() {
   bind();
-  const initial = location.hash.slice(1);
-  show($(`#view-${initial}`) ? initial : 'feed');
+  applyHash();
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   }

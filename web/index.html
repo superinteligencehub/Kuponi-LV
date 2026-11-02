@@ -31,22 +31,34 @@
   <main id="main">
     <!-- Лента -->
     <section class="view" id="view-feed" data-view="feed">
-      <div class="chips" id="catChips" role="tablist" aria-label="Категории"></div>
-      <div class="toolbar">
-        <button class="pill" id="filterBtn" aria-haspopup="dialog">Фильтры <span class="count" id="filterCount" hidden></span></button>
-        <label class="toggle-pill"><input type="checkbox" id="endsTodayQuick"><span>Сегодня последний день</span></label>
-        <label class="toggle-pill"><input type="checkbox" id="myStoresQuick"><span>Мои магазины</span></label>
-        <select id="sortSel" class="pill" aria-label="Сортировка">
-          <option value="eur">Выгода, €</option>
-          <option value="pct">Выгода, %</option>
-          <option value="ends">Скоро закончится</option>
-          <option value="price">Цена</option>
-          <option value="new">Новые</option>
-        </select>
+      <div id="homeView">
+        <button class="search-launch" data-goto="search">🔎 <span>Найти товар: молоко, кофе, порошок…</span></button>
+        <div class="sec-grid" id="secGrid"></div>
+        <div id="shelves"></div>
       </div>
-      <p class="result-count" id="feedCount"></p>
-      <div class="cards" id="feedList"></div>
-      <div class="sentinel" id="feedMore"></div>
+      <div id="listView" hidden>
+        <div class="list-head">
+          <button class="icon-btn" id="backBtn" aria-label="Назад к разделам">←</button>
+          <h2 id="listTitle"></h2>
+        </div>
+        <div class="chips" id="subChips"></div>
+        <div class="chips stores" id="storeChips"></div>
+        <div class="toolbar">
+          <button class="pill" id="filterBtn" aria-haspopup="dialog">⚙︎ Фильтры <span class="count" id="filterCount" hidden></span></button>
+          <select id="sortSel" class="pill" aria-label="Сортировка">
+            <option value="eur">Выгода, €</option>
+            <option value="pct">Выгода, %</option>
+            <option value="ends">Скоро закончится</option>
+            <option value="price">Сначала дешёвые</option>
+            <option value="new">Новые</option>
+          </select>
+          <label class="toggle-pill"><input type="checkbox" id="endsTodayQuick"><span>⏰ Последний день</span></label>
+          <label class="toggle-pill"><input type="checkbox" id="myStoresQuick"><span>Мои магазины</span></label>
+        </div>
+        <p class="result-count" id="feedCount"></p>
+        <div class="grid" id="feedList"></div>
+        <div class="sentinel" id="feedMore"></div>
+      </div>
     </section>
 
     <!-- Лучшее сегодня -->
@@ -54,12 +66,12 @@
       <h2 class="view-title">Лучшее сегодня</h2>
       <p class="hint">Топ по реальной выгоде в евро (на 1 покупку). Учитываются только действующие сегодня предложения.</p>
       <div class="chips" id="bestScope"></div>
-      <ol class="cards ranked" id="bestList"></ol>
+      <div class="grid ranked" id="bestList"></div>
       <h3 class="section-title" id="endingTitle">Заканчиваются сегодня</h3>
-      <div class="cards" id="endingList"></div>
+      <div class="grid" id="endingList"></div>
       <h3 class="section-title" id="catalogTitle">Буклеты акций</h3>
       <p class="hint">Сети, у которых акции публикуются только в буклете (PDF): открывайте по ссылке.</p>
-      <div class="cards" id="catalogList"></div>
+      <div class="grid" id="catalogList"></div>
     </section>
 
     <!-- Поиск -->
@@ -69,13 +81,13 @@
       </form>
       <div class="chips" id="searchSuggest"></div>
       <div id="compare"></div>
-      <div class="cards" id="searchList"></div>
+      <div class="grid" id="searchList"></div>
     </section>
 
     <!-- Избранное -->
     <section class="view" id="view-fav" data-view="fav" hidden>
       <h2 class="view-title">Избранное</h2>
-      <div class="cards" id="favList"></div>
+      <div class="grid" id="favList"></div>
       <h3 class="section-title">Мои магазины</h3>
       <p class="hint">Отметьте магазины, которыми пользуетесь — включайте «Мои магазины» в ленте, и утреннее уведомление будет про них.</p>
       <div class="store-grid" id="myStoresGrid"></div>
@@ -90,7 +102,7 @@
       <div class="panel">
         <p class="hint">Для закрытых источников (приложения McDonald's, Wolt, Drogas…): заполните вручную или выберите фото/скриншот — текст и цены распознаются автоматически (в браузере).</p>
         <button class="btn primary" id="addCouponBtn">+ Добавить купон</button>
-        <div class="cards" id="manualList"></div>
+        <div class="grid" id="manualList"></div>
         <div class="row-actions" id="manualActions" hidden>
           <button class="btn" id="exportManual">Экспорт для data/manual.json</button>
         </div>
@@ -116,7 +128,7 @@
   </main>
 
   <nav class="tabbar" aria-label="Разделы">
-    <button data-tab="feed" class="active"><span aria-hidden="true">🏷️</span>Лента</button>
+    <button data-tab="feed" class="active"><span aria-hidden="true">🏠</span>Главная</button>
     <button data-tab="best"><span aria-hidden="true">🏆</span>Лучшее</button>
     <button data-tab="search"><span aria-hidden="true">🔎</span>Поиск</button>
     <button data-tab="fav"><span aria-hidden="true">★</span>Избранное</button>
@@ -182,6 +194,12 @@
         <button class="btn primary" value="save" id="mSave">Сохранить</button>
       </div>
     </form>
+  </dialog>
+
+  <!-- Карточка товара -->
+  <dialog id="detailDlg" class="sheet">
+    <div class="detail" id="detailBody"></div>
+    <form method="dialog" class="detail-close"><button class="btn">Закрыть</button></form>
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>

@@ -134,6 +134,13 @@ export class Translator {
     const uniq = [...new Set(texts.filter((t) => t && t.trim()))];
     const todo = [];
     for (const t of uniq) {
+      // Известные условия акций переводим по словарю: онлайн-перевод превращает бренды
+      // (карта «PALDIES») в слова («СПАСИБО»).
+      const ph = phraseMap.get(lower(t.trim()).replace(/[.!]+$/, ''));
+      if (ph) {
+        this.cache[t] = { ru: ph[0].toLocaleUpperCase('ru') + ph.slice(1), src: 'phrase' };
+        continue;
+      }
       const c = this.cache[t];
       if (c && c.src !== 'glossary') this.stats.cached++;
       else todo.push(t);
@@ -170,7 +177,9 @@ export class Translator {
       for (let i = 0; i < batch.length; i++) {
         const lv = batch[i];
         if (translated?.[i]) {
-          this.cache[lv] = { ru: translated[i], src: 'google' };
+          // бренды карт/приложений не переводим
+          const ru = translated[i].replace(/СПАСИБО|Спасибо/g, /paldies/i.test(lv) ? 'PALDIES' : '$&');
+          this.cache[lv] = { ru, src: 'google' };
           this.stats.online++;
           continue;
         }
