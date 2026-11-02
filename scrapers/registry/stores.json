@@ -256,7 +256,7 @@
    "https://www.douglas.lv/lv/outlet/",
    "https://www.douglas.lv/lv/katalogs/super-cena/"
   ],
-  "sample": 71
+  "sample": 91
  },
  {
   "domain": "euroaptieka.lv",
@@ -380,8 +380,8 @@
   "category": "beauty",
   "id": "siberika-lv",
   "checked": "2026-11-02",
-  "status": "blocked",
-  "note": "HTTP 403, проверка бота"
+  "status": "unavailable",
+  "note": "UND_ERR_CONNECT_TIMEOUT"
  },
  {
   "domain": "gramatnica.lv",
@@ -414,7 +414,7 @@
    "https://www.janisroze.lv/lv/test1/nedelas-ipasais-piedavajums"
   ],
   "sample": 33,
-  "failedChecks": 1,
+  "failedChecks": 2,
   "lastCheckNote": "blocked: HTTP 403, проверка бота"
  },
  {
@@ -429,11 +429,11 @@
   "platform": "html",
   "saleUrls": [
    "https://kanclers.lv/",
+   "https://kanclers.lv/velosipedi/izpardosana",
    "https://kanclers.lv/velosipedi/izpardosana/velosipeds-limber-18-zils-ar-rlimc1820",
-   "https://kanclers.lv/velosipedi/izpardosana/velosipeds-limber-20-grafit-ar-rlimc2030",
-   "https://kanclers.lv/velosipedi/izpardosana/velosipeds-romet-rambler-26-r6-1-ar-2226150-21xl-melns"
+   "https://kanclers.lv/velosipedi/izpardosana/velosipeds-limber-20-grafit-ar-rlimc2030"
   ],
-  "sample": 31
+  "sample": 87
  },
  {
   "domain": "zvaigzne.lv",
@@ -773,7 +773,7 @@
   "id": "mistore-lv",
   "checked": "2026-11-02",
   "status": "unavailable",
-  "note": "ENOTFOUND"
+  "note": "UND_ERR_CONNECT_TIMEOUT"
  },
  {
   "domain": "ordi.lv",
@@ -1162,7 +1162,7 @@
   "id": "subway-lv",
   "checked": "2026-11-02",
   "status": "unavailable",
-  "note": "UND_ERR_CONNECT_TIMEOUT"
+  "note": "EAI_AGAIN"
  },
  {
   "domain": "vapiano.lv",
@@ -1412,7 +1412,7 @@
    "https://nuko.lv/visas-preces?am_on_sale="
   ],
   "sample": 34,
-  "failedChecks": 1,
+  "failedChecks": 2,
   "lastCheckNote": "blocked: HTTP 403, проверка бота"
  },
  {
@@ -1525,7 +1525,7 @@
    "https://www.home4you.lv/lv/piedavajumi/",
    "https://www.home4you.lv/lv/labakie-piedavajumi/"
   ],
-  "sample": 125
+  "sample": 126
  },
  {
   "domain": "ikea.lv",
@@ -1572,7 +1572,7 @@
    "https://www.kruza.lv/katalogs/izpardosana/tapetes-izpardosana/"
   ],
   "sample": 48,
-  "failedChecks": 1,
+  "failedChecks": 2,
   "lastCheckNote": "blocked: HTTP 403, проверка бота"
  },
  {
@@ -1591,7 +1591,7 @@
    "https://www.ksenukai.lv/c/sports-brivais-laiks-turisms/piepusamas-atrakcijas-matraci-peldrinki/piepusamas-atrakcijas/occ"
   ],
   "sample": 64,
-  "failedChecks": 1,
+  "failedChecks": 2,
   "lastCheckNote": "blocked: HTTP 403, проверка бота"
  },
  {
@@ -1611,7 +1611,7 @@
    "https://www.kursi.lv/lv/visas-kampanas/akcijas"
   ],
   "sample": 26,
-  "failedChecks": 1,
+  "failedChecks": 2,
   "lastCheckNote": "blocked: HTTP 403, проверка бота"
  },
  {
@@ -1708,7 +1708,7 @@
    "https://superselection.lv/lv/special"
   ],
   "sample": 63,
-  "failedChecks": 1,
+  "failedChecks": 2,
   "lastCheckNote": "blocked: HTTP 403, проверка бота"
  },
  {
@@ -1735,7 +1735,7 @@
    "https://www.babycity.lv/lv/izpardosana-atlaides-nesummejas-un-attiecas-uz-noteiktam-precem/0525",
    "https://www.babycity.lv/lv/starpsezonu-izpardosana-apgerbiem-un-apaviem/CMP009252"
   ],
-  "sample": 75,
+  "sample": 78,
   "note": "Страница распродажи (рендер в браузере), цены и срок из пометки «Regulārā cena / Akcija derīga līdz»",
   "saleUrls": [
    "https://www.babycity.lv/lv/izpardosana-atlaides-nesummejas-un-attiecas-uz-noteiktam-precem/0525"
@@ -1906,7 +1906,7 @@
   "platform": "html",
   "saleLinks": [],
   "sample": 0,
-  "note": "Публичных цен со скидкой не найдено (акции в PDF/картинках/приложении)"
+  "note": "Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)"
  },
  {
   "domain": "lupilu.lv",
@@ -1965,7 +1965,7 @@
    "https://www.babycity.lv/lv/visas-akcijas",
    "https://www.babycity.lv/lv/izpardosana-atlaides-nesummejas-un-attiecas-uz-noteiktam-precem/0525"
   ],
-  "sample": 66,
+  "sample": 68,
   "saleUrls": [
    "https://www.babycity.lv/lv/mothercare",
    "https://www.babycity.lv/lv/izpardosana-atlaides-nesummejas-un-attiecas-uz-noteiktam-precem/0525"
@@ -1992,7 +1992,7 @@
   "id": "rotallietas-lv",
   "checked": "2026-11-02",
   "status": "unavailable",
-  "note": "UND_ERR_CONNECT_TIMEOUT"
+  "note": "EAI_AGAIN"
  },
  {
   "domain": "rotalu.lv",
@@ -2015,7 +2015,7 @@
   "platform": "html",
   "saleUrls": [
    "https://skyhunters.lv/",
-   "https://skyhunters.lv/ee/index.php?route=product/special"
+   "https://skyhunters.lv/index.php?route=product/special"
   ],
   "sample": 14
  },
@@ -2064,7 +2064,7 @@
    "https://www.dinozoo.lv/izdevigs-piedavajums-no-hills/"
   ],
   "sample": 71,
-  "failedChecks": 1,
+  "failedChecks": 2,
   "lastCheckNote": "blocked: HTTP 403, проверка бота"
  },
  {
@@ -2238,7 +2238,7 @@
    "https://www.bite.lv/lv/noliktavas-izpardosana",
    "https://www.bite.lv/lv/piedavajumi"
   ],
-  "sample": 99
+  "sample": 102
  },
  {
   "domain": "lmt.lv",
@@ -2259,9 +2259,13 @@
   "url": "https://www.tele2.lv/",
   "status": "no-deals",
   "platform": "html",
-  "saleLinks": [],
+  "saleLinks": [
+   "https://www.tele2.lv/akcijas/",
+   "https://www.tele2.lv/iericu-akcija/?filter=1&IS=1&type=akcijas",
+   "https://www.tele2.lv/iericu-akcija/?filter=1&IS=1&type=outlet"
+  ],
   "sample": 0,
-  "note": "Публичных цен со скидкой не найдено (акции в PDF/картинках/приложении)"
+  "note": "Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)"
  },
  {
   "domain": "tet.lv",
