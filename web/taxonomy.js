@@ -8,6 +8,7 @@ export const SECTIONS = [
     ['grocery', 'Бакалея'], ['sweets', 'Сладкое и снеки'], ['frozen', 'Заморозка и готовое'], ['drinks', 'Напитки'],
     ['alcohol', 'Алкоголь'], ['foodother', 'Другие продукты'],
   ] },
+  { id: 'fastfood', short: 'Фастфуд, пицца', name: 'Фастфуд, пицца и кафе', icon: '🍔', subs: [['burgers', 'Бургеры'], ['pizza', 'Пицца'], ['chicken', 'Курица'], ['coffee', 'Кофе и выпечка'], ['ffother', 'Другое']] },
   { id: 'household', short: 'Химия и гигиена', name: 'Бытовая химия и гигиена', icon: '🧴', subs: [
     ['laundry', 'Стирка'], ['dishes', 'Мытьё посуды'], ['cleaning', 'Уборка'], ['paper', 'Бумага и салфетки'], ['hygiene', 'Гигиена и уход'],
   ] },
@@ -20,7 +21,6 @@ export const SECTIONS = [
   { id: 'sport', short: 'Спорт', name: 'Спорт и отдых', icon: '⚽', subs: [] },
   { id: 'books', short: 'Книги', name: 'Книги и канцелярия', icon: '📚', subs: [] },
   { id: 'auto', short: 'Авто', name: 'Авто и топливо', icon: '⛽', subs: [] },
-  { id: 'fastfood', short: 'Кафе', name: 'Кафе и фастфуд', icon: '🍔', subs: [] },
   { id: 'services', short: 'Услуги', name: 'Связь, досуг, поездки', icon: '🎟️', subs: [] },
   { id: 'catalogs', short: 'Буклеты', name: 'Буклеты акций', icon: '📖', subs: [] },
 ];
@@ -83,6 +83,17 @@ export function classify(c) {
   const hay = ` ${norm(`${c.title} ${c.brand ?? ''} ${c.titleRu ?? ''}`).replace(/[^a-z0-9а-я.%]+/g, ' ')} `;
   const storeSec = STORE_TO_SECTION[c.category] ?? 'services';
   // Специализированные магазины (аптеки, детские, зоо…) — раздел магазина, но внутри уточняем подраздел
+  // Фастфуд/кафе (и еда на заправках Circle K) — подраздел по сети и тексту
+  const ffText = /\b(burger\w*|hotdog\w*|hot dog|vrap\w*|kafij\w*|maltit\w*|smalkmaiz\w*|kruasan\w*|pica|picas|picu|nuget\w*|sparnin\w*|kombo|combo)\b/;
+  if (c.category === 'fastfood' || (c.category === 'auto' && c.kind !== 'price' && ffText.test(hay))) {
+    const st = norm(c.store);
+    let sub = 'ffother';
+    if (/pizza|pica|lulu/.test(st) || /\b(pica|picas|picu|pizza)\b/.test(hay)) sub = 'pizza';
+    else if (/kfc/.test(st) || /\b(sparnin\w*|nuget\w*|vistin\w*)\b/.test(hay)) sub = 'chicken';
+    else if (/burger|mcdonald|hesburger/.test(st) || /\bburger\w*\b/.test(hay)) sub = 'burgers';
+    else if (/caffeine|coffee|kafej/.test(st) || /\b(kafij\w*|kruasan\w*|smalkmaiz\w*)\b/.test(hay)) sub = 'coffee';
+    return { sec: 'fastfood', sub };
+  }
   if (!MIXED_STORE_CATS.has(c.category)) {
     if (storeSec === 'kids') {
       for (const [sec, sub, re] of NONFOOD) if (sec === 'kids' && re.test(hay)) return { sec, sub };

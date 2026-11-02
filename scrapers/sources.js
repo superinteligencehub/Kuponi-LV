@@ -24,6 +24,23 @@ const CUSTOM = [
   { id: 'mcdonalds', name: "McDonald's", category: 'fastfood', mode: 'manual', module: './stores/mcdonalds.js',
     url: 'https://www.mcdonalds.lv/',
     note: 'Сайт закрыт проверкой Cloudflare, купоны — в приложении. Ручной ввод/фото.' },
+  // ---- Фастфуд, пицца, кафе ----
+  { id: 'burgerking', name: 'Burger King', category: 'fastfood', mode: 'auto', module: './stores/burgerking.js',
+    url: 'https://burgerking.lv/piedavajumi/', note: 'Страница «Piedāvājumi»: King Deal, семейные среды, скидки студентам. Купоны приложения — вручную.' },
+  { id: 'kfc', name: 'KFC', category: 'fastfood', mode: 'auto', module: './stores/kfc.js',
+    url: 'https://kfc.lv/akcijas-piedavjumi/', note: 'Акции из новостей сайта и «Trakās otrdienas». Купоны приложения — вручную.' },
+  { id: 'dominos', name: "Domino's Pizza", category: 'fastfood', mode: 'auto', module: './stores/dominos.js',
+    url: 'https://dominospizza.lv/lv/riga/', replaces: ['dominos.lv'], note: 'Меню сайта: комбо и пиццы со старой ценой, промо-слайды и промокоды (если есть).' },
+  { id: 'cilipizza', name: 'Čili Pizza', category: 'fastfood', mode: 'auto', module: './stores/cilipizza.js',
+    url: 'https://cilipizza.lv/', replaces: ['cilipica.lv'], note: 'Акции со слайдера на главной (2 по цене 1 и т. п.).' },
+  { id: 'caffeine', name: 'Caffeine', category: 'fastfood', mode: 'auto', module: './stores/caffeine.js',
+    url: 'https://caffeine.lv/pastavigie-piedavajumi/', note: 'Постоянные и ежемесячные предложения кофеен.' },
+  { id: 'hesburger', name: 'Hesburger', category: 'fastfood', mode: 'manual', url: 'https://www.hesburger.lv/',
+    note: 'Купоны и акции — только в приложении Hesburger. Ручной ввод/фото.' },
+  { id: 'lulu', name: 'Pica Lulū', category: 'fastfood', mode: 'manual', url: 'https://www.lulu.lv/',
+    note: 'robots.txt сайта запрещает автоматический сбор — только ручной ввод.' },
+  { id: 'narvesen', name: 'Narvesen', category: 'fastfood', mode: 'manual', url: 'https://narvesen.lv/akcijas/',
+    note: 'Акции на сайте только картинками, остальное — в приложении Narvesen. Ручной ввод/фото.' },
   { id: 'wolt', name: 'Wolt', category: 'delivery', mode: 'manual', url: 'https://wolt.com/',
     note: 'Акции зависят от адреса и аккаунта (приложение) — ручной ввод.' },
   { id: 'boltfood', name: 'Bolt Food', category: 'delivery', mode: 'manual', url: 'https://food.bolt.eu/',
@@ -38,7 +55,8 @@ function loadRegistry() {
   }
 }
 
-const taken = new Set(CUSTOM.flatMap((s) => [s.id, s.name.toLowerCase()]));
+const hostOfUrl = (u) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return ''; } };
+const taken = new Set(CUSTOM.flatMap((s) => [s.id, s.name.toLowerCase(), hostOfUrl(s.url), ...(s.replaces ?? [])]));
 const NOTE = {
   blocked: 'Сайт закрыт проверкой бота — ручной ввод (или буклет, если есть).',
   'no-deals': 'Сайт открыт, но публичных цен со скидкой не найдено (акции в буклете/картинках/приложении).',
@@ -58,7 +76,7 @@ const unique = registry.filter((r) => {
 });
 
 const discovered = unique
-  .filter((r) => r.status !== 'unavailable' && !taken.has(r.id) && !taken.has(r.name.toLowerCase()) && r.category !== 'deals')
+  .filter((r) => r.status !== 'unavailable' && !taken.has(r.id) && !taken.has(r.name.toLowerCase()) && !taken.has(r.domain.replace(/^www\./, '')) && !taken.has(hostOfUrl(r.url ?? '')) && r.category !== 'deals')
   .map((r) => ({
     id: r.id,
     name: r.name,

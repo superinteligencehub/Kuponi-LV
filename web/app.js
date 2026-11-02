@@ -196,7 +196,9 @@ function tileHtml(c) {
   const ru = c.titleRu && c.titleRu !== c.title ? c.titleRu : '';
   const price = c.priceNew != null
     ? `<div class="tile-price"><b>${eur(c.priceNew)}</b>${c.priceOld ? `<s>${eur(c.priceOld)}</s>` : ''}</div>`
-    : c.kind === 'catalog' ? '<div class="tile-price"><b class="cat">📖 Буклет</b></div>' : '';
+    : c.kind === 'catalog' ? '<div class="tile-price"><b class="cat">📖 Буклет</b></div>'
+    : c.kind === 'coupon' ? '<div class="tile-price"><b class="cat">🎟️ Купон</b></div>'
+    : '<div class="tile-price"><b class="cat">🎉 Акция</b></div>';
   const save = c.savingEur
     ? `<div class="tile-save">выгода ${eurShort(c.savingEur)}</div>`
     : c.unitPrice ? `<div class="tile-unit">${eur(c.unitPrice.value)}/${UNIT_RU[c.unitPrice.unit] ?? c.unitPrice.unit}</div>` : '';
@@ -255,7 +257,14 @@ function renderHome() {
     + (ending.length ? shelfHtml(`⏰ Последний день (${ending.length})`, ending.slice(0, 12), null) : '');
   for (const s of SECTIONS) {
     if (s.id === 'catalogs') continue;
-    html += shelfHtml(`${s.icon} ${esc(s.name)}`, deals.filter((c) => c._sec === s.id).slice(0, 10), s.id, counts.get(s.id));
+    let items = deals.filter((c) => c._sec === s.id);
+    // у кафе и фастфуда акции чаще без «старой цены» — показываем все действующие предложения
+    if (items.length < 6) {
+      const rest = S.all.filter((c) => c._sec === s.id && isActiveToday(c) && !items.includes(c) && c.kind !== 'catalog')
+        .sort((a, b) => (b.savingPct ?? 0) - (a.savingPct ?? 0) || (b.priceNew != null) - (a.priceNew != null));
+      items = items.concat(rest);
+    }
+    html += shelfHtml(`${s.icon} ${esc(s.name)}`, items.slice(0, 10), s.id, counts.get(s.id));
   }
   const cats = S.all.filter((c) => c._sec === 'catalogs').sort((a, b) => a.store.localeCompare(b.store));
   html += shelfHtml('📖 Буклеты акций', cats, 'catalogs', cats.length);

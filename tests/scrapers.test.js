@@ -149,3 +149,39 @@ test('универсальный разбор: Omnibus с суммой во вл
   assert.equal(d[0].priceOld, 6.99);
   assert.equal(d[0].priceNew, 2.8);
 });
+
+import { parse as parseBK } from '../scrapers/stores/burgerking.js';
+import { parse as parseCili } from '../scrapers/stores/cilipizza.js';
+import { parseProps, parseDeals } from '../scrapers/stores/dominos.js';
+import { offerFromText } from '../scrapers/lib/promo.js';
+
+test('Burger King: акции страницы «Piedāvājumi»', () => {
+  const items = parseBK(fx('burgerking.html'), '2026-11-02');
+  assert.ok(items.length >= 2);
+  const king = items.find((i) => /Mazs burgers/.test(i.title));
+  assert.equal(king.priceNew, 2.95);
+  assert.match(king.image, /^https:\/\/burgerking\.lv\//);
+});
+
+test('Čili Pizza: слайдер акций, «2 по цене 1»', () => {
+  const items = parseCili(fx('cilipizza.html'), '2026-11-02');
+  const nov = items.find((i) => /novembrim/i.test(i.title));
+  assert.ok(nov.conditions.some((c) => /2 par 1/.test(c)));
+  assert.ok(!items.some((i) => /Roku darbs/.test(i.title)), 'рекламные слайды без акции отброшены');
+});
+
+test("Domino's: старая цена из JSON меню", () => {
+  const d = parseDeals(parseProps(fx('dominos.html')));
+  assert.equal(d.length, 1);
+  assert.equal(d[0].priceOld, 25.25);
+  assert.equal(d[0].priceNew, 17.67);
+});
+
+test('акции-баннеры: процент, срок, промокод; литовский и чистая реклама отбрасываются', () => {
+  const o = offerFromText({ title: 'Ģimenes trešdienas', text: 'Saņem visus komplektus ar 20% atlaidi līdz 30.11. Promokods: PICA40', url: 'u', today: '2026-11-02' });
+  assert.equal(o.savingPct, 20);
+  assert.equal(o.validTo, '2026-11-30');
+  assert.equal(o.kind, 'coupon');
+  assert.equal(offerFromText({ title: 'Atsigaivink su Red Bull', text: 'Atrask naujus skonius', url: 'u' }), null);
+  assert.equal(offerFromText({ title: 'Roku darbs', text: 'Uz vietas gatavota mīkla', url: 'u' }), null);
+});
