@@ -66,7 +66,8 @@ export async function ocrImage(url) {
   try {
     const { default: Tesseract } = await import('tesseract.js');
     const { buffer, type } = await fetchBuffer(url);
-    worker ??= await Tesseract.createWorker('lav+eng');
+    // языковые данные кэшируем в node_modules/.cache, а не в корне репозитория
+    worker ??= await Tesseract.createWorker('lav+eng', 1, { cachePath: fileURLToPath(new URL('../../node_modules/.cache/tesseract', import.meta.url)) });
     await worker.setParameters({ tessedit_pageseg_mode: '11' });
     const parts = [];
     for (const img of [buffer, ...(await variants(buffer, type))]) {
