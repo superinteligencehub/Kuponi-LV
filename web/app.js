@@ -17,6 +17,10 @@ const REQUIRES_RU = {
   'app:lidlplus': '📱 Lidl Plus',
   'card:mansrimi': '💳 Mans Rimi',
   'app:circlek-extra': '📱 Circle K EXTRA',
+  'app:viada': '📱 приложение/карта Viada',
+  'app:virsi': '📱 карта/приложение Virši',
+  'card:neste': '💳 карта Neste',
+  'card:astarte': '💳 карта Astarte',
 };
 const STATUS_RU = { ok: 'работает', stale: 'старые данные', error: 'ошибка', manual: 'ручной ввод', planned: 'нет скидок на сайте' };
 
@@ -144,6 +148,7 @@ function cardHtml(c) {
     ? `<div class="price-row"><span class="price-new">${eur(c.priceNew).replace(' €', '<small> €</small>')}</span>${c.priceOld ? `<span class="price-old">${eur(c.priceOld)}</span>` : ''}${unit}</div>`
     : '';
   const badges = [];
+  if (c.badge) badges.push(`<span class="badge save">${esc(c.badge)}</span>`);
   if (c.savingEur) badges.push(`<span class="badge save">−${eurShort(c.savingEur)}${c.savingPct ? ` · −${c.savingPct}%` : ''}</span>`);
   else if (c.savingPct) badges.push(`<span class="badge save">−${c.savingPct}%</span>`);
   if (c.kind === 'catalog') badges.push('<span class="badge req">📖 буклет акций</span>');
@@ -188,7 +193,7 @@ function tileHtml(c) {
   const pic = img
     ? `<img src="${esc(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-ph="${icon}">`
     : `<span class="ph" aria-hidden="true">${icon}</span>`;
-  const pct = c.savingPct ? `<span class="tile-badge">−${c.savingPct}%</span>` : '';
+  const pct = c.badge ? `<span class="tile-badge">${esc(c.badge)}</span>` : c.savingPct ? `<span class="tile-badge">−${c.savingPct}%</span>` : '';
   let flag = '';
   if (c.kind !== 'price' && c.kind !== 'catalog' && c.validTo === S.today) flag = '<span class="tile-flag hot">⏰ последний день</span>';
   else if (c.validFrom && c.validFrom > S.today) flag = `<span class="tile-flag">с ${ddmm(c.validFrom)}</span>`;
@@ -326,6 +331,7 @@ function renderList() {
   const active = ['minPct', 'minEur', 'noCard', 'hideUpcoming', 'onlyDiscounts'].filter((k) => f[k]).length;
   $('#filterCount').hidden = !active;
   $('#filterCount').textContent = active;
+  $('#fuelCompare').innerHTML = S.sec === 'auto' && !S.sub ? fuelCompareHtml() : '';
   S.feedItems = applyFilters(S.all).sort(SORTS[f.sort] ?? SORTS.eur);
   S.feedShown = 0;
   $('#feedList').innerHTML = '';
@@ -335,6 +341,24 @@ function renderList() {
     return;
   }
   moreFeed();
+}
+
+const FUEL_ORDER = [['95', 'Бензин 95'], ['95p', 'Бензин 95 премиум'], ['98', 'Бензин 98'], ['d', 'Дизель'], ['dp', 'Дизель премиум'], ['lpg', 'Автогаз (LPG)'], ['cbg', 'Биометан (CBG)'], ['adblue', 'AdBlue']];
+
+/** Сравнение цен на топливо по сетям АЗС (по данным сайтов на сегодня). */
+function fuelCompareHtml() {
+  const prices = S.all.filter((c) => c.kind === 'price' && c.fuel && c.priceNew);
+  if (!prices.length) return '';
+  const rows = FUEL_ORDER.map(([key, name]) => {
+    const list = prices.filter((c) => c.fuel === key).sort((a, b) => a.priceNew - b.priceNew);
+    if (!list.length) return '';
+    const cells = list.map((c, i) => `<span class="fuel-cell${i === 0 && list.length > 1 ? ' best' : ''}" data-open="${esc(c.id)}">${esc(c.store)} <b>${c.priceNew.toFixed(3)}</b></span>`).join('');
+    return `<tr><th>${name}</th><td>${cells}</td></tr>`;
+  }).join('');
+  const promos = S.all.filter((c) => c._sec === 'auto' && /c\/л/.test(c.badge ?? ''));
+  return `<div class="compare fuel"><h3>⛽ Цены на топливо сегодня, €/л</h3><table>${rows}</table>
+    <p class="hint">Самая низкая цена выделена. Цены с сайтов сетей (Viada — минимальная по сети, Virši/Circle K — как указано на сайте), могут отличаться по станциям.</p>
+    ${promos.length ? `<p class="hint"><b>Скидки на топливо:</b> ${promos.map((c) => `<span class="fuel-cell" data-open="${esc(c.id)}">${esc(c.store)} ${esc(c.badge)}</span>`).join(' ')}</p>` : ''}</div>`;
 }
 
 function renderFeed() {

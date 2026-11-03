@@ -185,3 +185,42 @@ test('акции-баннеры: процент, срок, промокод; л�
   assert.equal(offerFromText({ title: 'Atsigaivink su Red Bull', text: 'Atrask naujus skonius', url: 'u' }), null);
   assert.equal(offerFromText({ title: 'Roku darbs', text: 'Uz vietas gatavota mīkla', url: 'u' }), null);
 });
+
+import { fuelKind, parseFuelPromo } from '../scrapers/lib/fuel.js';
+import { parsePrices as viadaPrices } from '../scrapers/stores/viada.js';
+import { parsePrices as virsiPrices, parseFood as virsiFood } from '../scrapers/stores/virsi.js';
+
+test('топливо: виды и акции «c/л»', () => {
+  assert.equal(fuelKind('95miles').key, '95');
+  assert.equal(fuelKind('98miles+').key, '98');
+  assert.equal(fuelKind('Dmiles+').key, 'dp');
+  assert.equal(fuelKind('95ectoplus').key, '95p');
+  assert.equal(fuelKind('DD').key, 'd');
+  assert.equal(fuelKind('Autogāze').key, 'lpg');
+  assert.deepEqual(parseFuelPromo('DEGVIELA -10 centi litrā | PIEKTDIENĀS, SESTDIENĀS, SVĒTDIENĀS'), { cents: 10, days: ['piektdienās', 'sestdienās', 'svētdienās'] });
+  assert.equal(parseFuelPromo('saņemt 5c/l atlaidi').cents, 5);
+});
+
+test('Viada: минимальные цены по видам топлива', () => {
+  const p = viadaPrices(fx('viada-prices.html'), '2026-11-03');
+  const p95 = p.find((x) => x.fuel === '95');
+  assert.equal(p95.priceNew, 1.797);
+  assert.equal(p95.validTo, '2026-11-03');
+  assert.ok(p.some((x) => x.fuel === '98'));
+});
+
+test('Virši: цены топлива и еда по карте', () => {
+  const p = virsiPrices(fx('virsi-prices.html'), '2026-11-03');
+  assert.equal(p.find((x) => x.fuel === '95').priceNew, 1.889);
+  assert.equal(p.find((x) => x.fuel === 'lpg').priceNew, 1.065);
+  const food = virsiFood(fx('virsi-food.html'), '2026-11-03');
+  const hot = food.find((x) => /Hotdogs/.test(x.title));
+  assert.equal(hot.priceNew, 1.99);
+  assert.equal(hot.priceOld, 2.95);
+  assert.equal(hot.validTo, '2027-01-06');
+});
+
+test('OCR баннера Viada: «-10 centi litrā» в переставленном порядке', () => {
+  const ocr = '4 LOJALI Plus ay, PIEKTDIENAS, SESTDIENAS, SVETDIENAS | N DEGVIELA VIADA centi litrā Sveiki! -10 | | LOJALI';
+  assert.deepEqual(parseFuelPromo(ocr), { cents: 10, days: ['piektdienās', 'sestdienās', 'svētdienās'] });
+});

@@ -4,6 +4,7 @@
 import * as cheerio from 'cheerio';
 import { fetchText } from '../lib/http.js';
 import { cleanText, parsePrice, rigaDate } from '../lib/util.js';
+import { fuelKind } from '../lib/fuel.js';
 
 const BASE = 'https://www.circlek.lv';
 const OFFER_PAGES = ['/ipasi-piedavajumi', '/kampanas-un-akcijas'];
@@ -54,9 +55,11 @@ export function parseFuel(html, today = rigaDate()) {
     const name = cleanText($(tds[0]).text());
     const price = parsePrice(cleanText($(tds[1]).text()));
     if (!name || price == null || price > 10 || /degviela/i.test(name)) return;
+    const fk = fuelKind(name);
     out.push({
       variant: `fuel-${name}`,
       kind: 'price',
+      ...(fk ? { fuel: fk.key } : {}),
       title: `${fuelType(name)} ${name}`,
       priceNew: price,
       unitPrice: { value: price, unit: 'l' },

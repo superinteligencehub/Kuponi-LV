@@ -97,3 +97,11 @@ export async function mapLimit(items, limit, fn) {
   await Promise.all(workers);
   return out;
 }
+
+/** Скачать бинарный файл (картинку) как Buffer. */
+export async function fetchBuffer(url, { timeoutMs = 30000 } = {}) {
+  await politeWait(url);
+  const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT }, signal: AbortSignal.timeout(timeoutMs), redirect: 'follow' });
+  if (!res.ok) throw new Error(`HTTP ${res.status} для ${url}`);
+  return { buffer: Buffer.from(await res.arrayBuffer()), type: res.headers.get('content-type') ?? 'image/png' };
+}

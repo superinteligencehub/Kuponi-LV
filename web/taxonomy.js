@@ -85,7 +85,10 @@ export function classify(c) {
   // Специализированные магазины (аптеки, детские, зоо…) — раздел магазина, но внутри уточняем подраздел
   // Фастфуд/кафе (и еда на заправках Circle K) — подраздел по сети и тексту
   const ffText = /\b(burger\w*|hotdog\w*|hot dog|vrap\w*|kafij\w*|maltit\w*|smalkmaiz\w*|kruasan\w*|pica|picas|picu|nuget\w*|sparnin\w*|kombo|combo)\b/;
-  if (c.category === 'fastfood' || (c.category === 'auto' && c.kind !== 'price' && ffText.test(hay))) {
+  // На АЗС: топливо, мойка, шины — «Авто»; хот-доги, кофе и прочая еда — «Фастфуд»
+  const carText = /\b(degviel\w*|uzpild\w*|litr\w*|benzin\w*|dizel\w*|riep\w*|mazgat\w*|mazgasan\w*|autogaz\w*|adblue|elektrouzlad\w*|vejstikl\w*|топлив|бензин|дизел|литр|мойк)/;
+  const stationFood = c.category === 'auto' && c.kind !== 'price' && !c.fuel && !/c\/л/.test(c.badge ?? '') && !carText.test(hay) && (c.priceNew != null || ffText.test(hay));
+  if (c.category === 'fastfood' || stationFood) {
     const st = norm(c.store);
     let sub = 'ffother';
     if (/pizza|pica|lulu/.test(st) || /\b(pica|picas|picu|pizza)\b/.test(hay)) sub = 'pizza';

@@ -14,6 +14,7 @@ import { normalizeCoupon, filterActive, dedupe, byValue, CATEGORIES } from './li
 import { Translator } from './lib/translate.js';
 import { BlockedError, mapLimit } from './lib/http.js';
 import { closeBrowser } from './lib/browser.js';
+import { closeOcr } from './lib/ocr.js';
 import { rigaDate } from './lib/util.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -114,6 +115,7 @@ async function main() {
     collected.push(...s.coupons);
   }
   await closeBrowser();
+  await closeOcr();
 
   // Купоны, добавленные вручную в репозитории (data/manual.json)
   const manual = await readJson(join(DATA, 'manual.json'), []);

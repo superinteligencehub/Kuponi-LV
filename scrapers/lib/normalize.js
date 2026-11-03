@@ -50,7 +50,9 @@ export const CATEGORIES = {
 export function normalizeCoupon(raw, source) {
   const title = String(raw.title ?? '').replace(/\s+/g, ' ').trim();
   if (!title) return null;
-  let priceNew = typeof raw.priceNew === 'number' && raw.priceNew > 0 ? round2(raw.priceNew) : null;
+  // цены на топливо публикуются с точностью до 0,001 €
+  const r = raw.fuel ? (n) => Math.round(n * 1000) / 1000 : round2;
+  let priceNew = typeof raw.priceNew === 'number' && raw.priceNew > 0 ? r(raw.priceNew) : null;
   let priceOld = typeof raw.priceOld === 'number' && raw.priceOld > 0 ? round2(raw.priceOld) : null;
   if (priceOld != null && priceNew != null && priceOld <= priceNew) priceOld = null;
 
@@ -88,6 +90,8 @@ export function normalizeCoupon(raw, source) {
     ...(savingEur != null ? { savingEur } : {}),
     ...(savingPct != null ? { savingPct } : {}),
     ...(raw.unitPrice ? { unitPrice: raw.unitPrice } : {}),
+    ...(raw.badge ? { badge: raw.badge } : {}),
+    ...(raw.fuel ? { fuel: raw.fuel } : {}),
     ...(raw.validFrom ? { validFrom: raw.validFrom } : {}),
     ...(validTo ? { validTo } : {}),
     conditions,

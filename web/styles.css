@@ -327,3 +327,10 @@ dialog.sheet { width: 100%; max-width: 560px; margin: auto auto 0; inset-inline:
 .toolbar, .chips { position: relative; }
 .toggle-pill input, .store-grid input { left: 0; top: 0; width: 1px; height: 1px; }
 .detail .badges { flex-wrap: wrap; }
+
+/* сравнение цен на топливо */
+.compare.fuel th { text-align: left; font-weight: 650; padding: 7px 8px 7px 0; vertical-align: top; white-space: nowrap; font-size: 13px; border-top: 1px solid var(--line); }
+.compare.fuel td { display: flex; flex-wrap: wrap; gap: 5px; }
+.fuel-cell { display: inline-block; font-size: 12.5px; padding: 3px 8px; border-radius: 999px; background: var(--surface-2); cursor: pointer; white-space: nowrap; }
+.fuel-cell.best { background: var(--save-bg); color: var(--save); font-weight: 700; }
+.compare.fuel .hint { margin: 8px 0 0; }

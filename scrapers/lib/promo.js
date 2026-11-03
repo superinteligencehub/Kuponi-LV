@@ -18,7 +18,7 @@ export function offerFromText({ title, text = '', url, image, today = rigaDate()
   // Только реальные акции: цена, скидка, «2 по цене 1», подарок, промокод или явное «akcija/piedāvājums».
   // Чисто рекламные слайды («Roku darbs») и текст на литовском (общий сайт KFC) отбрасываем.
   if (/[ąęėįų]/i.test(all)) return null;
-  const promoWord = /akcij|atlaid|piedāvāj|dāvan|bezmaksas|par brīvu|tāpat|izdevīg|ietaup|tikai par|lojalit|kupon|promokod|2 par 1|1\s?\+\s?1|lētāk|cena/i.test(all);
+  const promoWord = /akcij|atlaid|piedāvāj|dāvan|bezmaksas|par brīvu|tāpat|izdevīg|ietaup|tikai par|lojalit|kupon|promokod|uzkrāj|bonus|punkt|centi|2 par 1|1\s?\+\s?1|lētāk|cena/i.test(all);
   if (!prices.length && !pct && !promoWord) return null;
   const conditions = [];
   if (body) conditions.push(body.length > 400 ? `${body.slice(0, 397)}…` : body);

@@ -41,7 +41,7 @@ jobs:
         run: |
           git config user.name "kuponi-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/coupons.json data/translations.json
+          git add data/coupons.json data/translations.json data/ocr-cache.json 2>/dev/null || git add data/coupons.json data/translations.json
           if git diff --cached --quiet; then
             echo "Данные не изменились"
             exit 0
