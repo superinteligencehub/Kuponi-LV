@@ -4,6 +4,7 @@
 export function fuelKind(raw) {
   const s = String(raw ?? '').toLowerCase().replace(/[_-]/g, ' ');
   if (/ad ?blue/.test(s)) return { key: 'adblue', title: 'AdBlue' };
+  if (/xtl|hvo|renewable|atjaunojam/.test(s)) return { key: 'hvo', title: 'Dīzelis HVO (atjaunojamais)' };
   if (/lpg|auto ?g[aā]z|\bgas\b|propan/.test(s)) return { key: 'lpg', title: 'Autogāze (LPG)' };
   if (/cbg|cng|biometān|biometan/.test(s)) return { key: 'cbg', title: 'Biometāns (CBG)' };
   if (/98/.test(s)) return { key: '98', title: 'Benzīns 98' };
@@ -29,6 +30,8 @@ export function parseFuelPromo(text) {
   const m = t.match(/[-–]?\s?(\d{1,2}(?:[.,]\d)?)\s?(?:c|centi|centu|centus|ct)\s?(?:\/\s?l|litrā|uz litru|par litru|katram (?:degvielas )?litram)/i)
     ?? t.match(/[-–]\s?(\d{1,2})\b[^0-9]{0,40}centi[^0-9]{0,10}litr/i)
     ?? t.match(/(\d{1,2})\s?centi\/l/i)
+    // «5 centu atlaidi katram degvielas litram»
+    ?? t.match(/(\d{1,2}(?:[.,]\d)?)\s?cent\w*\s+atlaid\w*\s+(?:katram|uz|par)\s+(?:degvielas\s+)?litr/i)
     // OCR баннеров переставляет блоки: «centi litrā Sveiki! -10»
     ?? t.match(/centi\s*litr\w*[^0-9]{0,40}[-–]\s?(\d{1,2})\b/i);
   const days = DAYS.filter(([re]) => re.test(t)).map(([, d]) => d);

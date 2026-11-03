@@ -1,5 +1,5 @@
 import { WORDS } from './glossary.js';
-import { SECTIONS, SECTION_BY_ID, classify } from './taxonomy.js';
+import { SECTIONS, SECTION_BY_ID, classify, fuelCents } from './taxonomy.js';
 
 const CFG = self.KUPONI_CONFIG ?? {};
 const DATA_URL = CFG.dataUrl ?? '../data/coupons.json';
@@ -262,6 +262,11 @@ function renderHome() {
     + (ending.length ? shelfHtml(`⏰ Последний день (${ending.length})`, ending.slice(0, 12), null) : '');
   for (const s of SECTIONS) {
     if (s.id === 'catalogs') continue;
+    if (s.id === 'fuel') {
+      const fuelDeals = S.all.filter((c) => c._sec === 'fuel' && c.kind !== 'price' && isActiveToday(c)).sort((a, b) => fuelCents(b) - fuelCents(a));
+      html += shelfHtml(`⛽ Скидки на топливо`, fuelDeals.slice(0, 10), 'fuel', fuelDeals.length);
+      continue;
+    }
     let items = deals.filter((c) => c._sec === s.id);
     // у кафе и фастфуда акции чаще без «старой цены» — показываем все действующие предложения
     if (items.length < 6) {
@@ -331,8 +336,14 @@ function renderList() {
   const active = ['minPct', 'minEur', 'noCard', 'hideUpcoming', 'onlyDiscounts'].filter((k) => f[k]).length;
   $('#filterCount').hidden = !active;
   $('#filterCount').textContent = active;
-  $('#fuelCompare').innerHTML = S.sec === 'auto' && !S.sub ? fuelCompareHtml() : '';
+  const fuel = S.sec === 'fuel';
+  $('#fuelCompare').innerHTML = fuel && S.sub !== 'fueldisc' ? fuelCompareHtml() : '';
   S.feedItems = applyFilters(S.all).sort(SORTS[f.sort] ?? SORTS.eur);
+  if (fuel) {
+    // цены уже в таблице — в сетке только скидки (кроме подраздела «Цены сегодня»), крупные скидки первыми
+    if (S.sub !== 'fuelprice') S.feedItems = S.feedItems.filter((c) => c.kind !== 'price');
+    S.feedItems.sort((a, b) => fuelCents(b) - fuelCents(a) || (a.priceNew ?? 9) - (b.priceNew ?? 9));
+  }
   S.feedShown = 0;
   $('#feedList').innerHTML = '';
   $('#feedCount').textContent = S.feedItems.length ? `Найдено: ${S.feedItems.length}` : '';
@@ -343,7 +354,7 @@ function renderList() {
   moreFeed();
 }
 
-const FUEL_ORDER = [['95', 'Бензин 95'], ['95p', 'Бензин 95 премиум'], ['98', 'Бензин 98'], ['d', 'Дизель'], ['dp', 'Дизель премиум'], ['lpg', 'Автогаз (LPG)'], ['cbg', 'Биометан (CBG)'], ['adblue', 'AdBlue']];
+const FUEL_ORDER = [['95', 'Бензин 95'], ['95p', 'Бензин 95 премиум'], ['98', 'Бензин 98'], ['d', 'Дизель'], ['dp', 'Дизель премиум'], ['hvo', 'Дизель HVO (возобновляемый)'], ['lpg', 'Автогаз (LPG)'], ['cbg', 'Биометан (CBG)'], ['adblue', 'AdBlue']];
 
 /** Сравнение цен на топливо по сетям АЗС (по данным сайтов на сегодня). */
 function fuelCompareHtml() {
@@ -355,10 +366,10 @@ function fuelCompareHtml() {
     const cells = list.map((c, i) => `<span class="fuel-cell${i === 0 && list.length > 1 ? ' best' : ''}" data-open="${esc(c.id)}">${esc(c.store)} <b>${c.priceNew.toFixed(3)}</b></span>`).join('');
     return `<tr><th>${name}</th><td>${cells}</td></tr>`;
   }).join('');
-  const promos = S.all.filter((c) => c._sec === 'auto' && /c\/л/.test(c.badge ?? ''));
+  const promos = S.all.filter((c) => c._sec === 'fuel' && c.kind !== 'price' && fuelCents(c)).sort((a, b) => fuelCents(b) - fuelCents(a));
   return `<div class="compare fuel"><h3>⛽ Цены на топливо сегодня, €/л</h3><table>${rows}</table>
     <p class="hint">Самая низкая цена выделена. Цены с сайтов сетей (Viada — минимальная по сети, Virši/Circle K — как указано на сайте), могут отличаться по станциям.</p>
-    ${promos.length ? `<p class="hint"><b>Скидки на топливо:</b> ${promos.map((c) => `<span class="fuel-cell" data-open="${esc(c.id)}">${esc(c.store)} ${esc(c.badge)}</span>`).join(' ')}</p>` : ''}</div>`;
+    ${promos.length ? `<p class="hint"><b>Скидки (по размеру):</b> ${promos.map((c) => `<span class="fuel-cell" data-open="${esc(c.id)}">${esc(c.store)} ${esc(c.badge)}</span>`).join(' ')}</p>` : ''}</div>`;
 }
 
 function renderFeed() {

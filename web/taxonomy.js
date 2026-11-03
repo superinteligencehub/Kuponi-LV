@@ -3,6 +3,7 @@
 // Текст нормализуется: нижний регистр, без диакритики (ā→a, š→s, ё→е).
 
 export const SECTIONS = [
+  { id: 'fuel', short: 'Топливо', name: 'Топливо: скидки и цены', icon: '⛽', subs: [['fueldisc', 'Скидки на топливо'], ['fuelprice', 'Цены сегодня']] },
   { id: 'food', short: 'Еда и напитки', name: 'Еда и напитки', icon: '🍎', subs: [
     ['dairy', 'Молочное и яйца'], ['meat', 'Мясо и рыба'], ['produce', 'Овощи и фрукты'], ['bread', 'Хлеб и выпечка'],
     ['grocery', 'Бакалея'], ['sweets', 'Сладкое и снеки'], ['frozen', 'Заморозка и готовое'], ['drinks', 'Напитки'],
@@ -20,7 +21,7 @@ export const SECTIONS = [
   { id: 'fashion', short: 'Одежда', name: 'Одежда и обувь', icon: '👗', subs: [] },
   { id: 'sport', short: 'Спорт', name: 'Спорт и отдых', icon: '⚽', subs: [] },
   { id: 'books', short: 'Книги', name: 'Книги и канцелярия', icon: '📚', subs: [] },
-  { id: 'auto', short: 'Авто', name: 'Авто и топливо', icon: '⛽', subs: [] },
+  { id: 'auto', short: 'Авто: товары', name: 'Авто: товары и услуги АЗС', icon: '🚗', subs: [] },
   { id: 'services', short: 'Услуги', name: 'Связь, досуг, поездки', icon: '🎟️', subs: [] },
   { id: 'catalogs', short: 'Буклеты', name: 'Буклеты акций', icon: '📖', subs: [] },
 ];
@@ -77,9 +78,24 @@ const STORE_TO_SECTION = {
   travel: 'services', other: 'services',
 };
 
+/** Скидка именно на топливо: бейдж «−N c/л» или текст «N centi/l … degvielai». */
+export function isFuelDiscount(c) {
+  if (/c\/л/.test(c.badge ?? '')) return true;
+  if (c.kind === 'price' || !['auto', 'groceries', 'other'].includes(c.category)) return false;
+  const t = norm(`${c.title} ${(c.conditions ?? []).join(' ')}`);
+  return /\d+(?:[.,]\d)?\s?(c|cent\w*)\s?(\/\s?l|litr\w*|par litru|katram (degvielas )?litram|atlaid\w* (katram|uz) (degvielas )?litr)/.test(t)
+    || /atlaid\w* degviel\w*|degviel\w* atlaid\w*/.test(t);
+}
+
+/** «−10 c/л» → 10 (для сортировки скидок на топливо) */
+export const fuelCents = (c) => Number(String(c.badge ?? '').replace(',', '.').match(/(\d+(?:\.\d)?)\s?c\/л/)?.[1] ?? 0);
+
 /** → { sec, sub } */
 export function classify(c) {
   if (c.kind === 'catalog') return { sec: 'catalogs', sub: '' };
+  // Топливо: цены по видам топлива и скидки «X c/л». Кофе, еда и товары АЗС сюда не попадают.
+  if (c.kind === 'price' && c.fuel) return { sec: 'fuel', sub: 'fuelprice' };
+  if (isFuelDiscount(c)) return { sec: 'fuel', sub: 'fueldisc' };
   const hay = ` ${norm(`${c.title} ${c.brand ?? ''} ${c.titleRu ?? ''}`).replace(/[^a-z0-9а-я.%]+/g, ' ')} `;
   const storeSec = STORE_TO_SECTION[c.category] ?? 'services';
   // Специализированные магазины (аптеки, детские, зоо…) — раздел магазина, но внутри уточняем подраздел
@@ -87,7 +103,7 @@ export function classify(c) {
   const ffText = /\b(burger\w*|hotdog\w*|hot dog|vrap\w*|kafij\w*|maltit\w*|smalkmaiz\w*|kruasan\w*|pica|picas|picu|nuget\w*|sparnin\w*|kombo|combo)\b/;
   // На АЗС: топливо, мойка, шины — «Авто»; хот-доги, кофе и прочая еда — «Фастфуд»
   const carText = /\b(degviel\w*|uzpild\w*|litr\w*|benzin\w*|dizel\w*|riep\w*|mazgat\w*|mazgasan\w*|autogaz\w*|adblue|elektrouzlad\w*|vejstikl\w*|топлив|бензин|дизел|литр|мойк)/;
-  const stationFood = c.category === 'auto' && c.kind !== 'price' && !c.fuel && !/c\/л/.test(c.badge ?? '') && !carText.test(hay) && (c.priceNew != null || ffText.test(hay));
+  const stationFood = c.category === 'auto' && !c.fuel && !/c\/л/.test(c.badge ?? '') && !carText.test(hay) && (c.priceNew != null || ffText.test(hay));
   if (c.category === 'fastfood' || stationFood) {
     const st = norm(c.store);
     let sub = 'ffother';
