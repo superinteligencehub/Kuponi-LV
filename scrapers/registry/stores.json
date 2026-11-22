@@ -4,7 +4,7 @@
   "name": "AD Baltic",
   "category": "auto",
   "id": "adbaltic-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -13,7 +13,7 @@
   "name": "Amber Auto",
   "category": "auto",
   "id": "amberauto-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -22,7 +22,7 @@
   "name": "Auto Amarket",
   "category": "auto",
   "id": "autoamarket-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -31,7 +31,7 @@
   "name": "Autodoc",
   "category": "auto",
   "id": "autodoc-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -40,7 +40,7 @@
   "name": "Autoplius",
   "category": "auto",
   "id": "autoplius-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -49,7 +49,7 @@
   "name": "Gotika Auto",
   "category": "auto",
   "id": "gotikaauto-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.gotikaauto.lv",
   "url": "https://www.gotikaauto.lv/",
   "status": "no-deals",
@@ -63,7 +63,7 @@
   "name": "Inter Cars",
   "category": "auto",
   "id": "intercars-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -72,7 +72,7 @@
   "name": "Kool",
   "category": "auto",
   "id": "kool-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://kool.lv",
   "url": "https://kool.lv/",
   "status": "blocked",
@@ -86,7 +86,7 @@
   "name": "Neste",
   "category": "auto",
   "id": "neste-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.neste.lv",
   "url": "https://www.neste.lv/",
   "status": "blocked",
@@ -104,7 +104,7 @@
   "name": "Riepas1",
   "category": "auto",
   "id": "riepas1-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://riepas1.lv",
   "url": "https://riepas1.lv/lv",
   "status": "no-deals",
@@ -120,7 +120,7 @@
   "name": "Riepu centrs",
   "category": "auto",
   "id": "riepu-centrs-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -129,7 +129,7 @@
   "name": "Riepu serviss",
   "category": "auto",
   "id": "riepuserviss-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://riepuserviss.lv",
   "url": "https://riepuserviss.lv/",
   "status": "no-deals",
@@ -143,12 +143,16 @@
   "name": "Viada",
   "category": "auto",
   "id": "viada-lv",
-  "checked": "2026-11-15",
-  "origin": "https://viada.lv",
-  "url": "https://viada.lv/",
+  "checked": "2026-11-22",
+  "origin": "https://www.viada.lv",
+  "url": "https://www.viada.lv/",
   "status": "no-deals",
   "platform": "html",
-  "saleLinks": [],
+  "saleLinks": [
+   "https://www.viada.lv/jaunumi-un-piedavajumi/",
+   "https://www.viada.lv/piedavajumi/10-centu-atlaide-degvielai-piektdienas-sestdienas-un-svetdienas-ar-viada-latvija-vai-lidl-plus-lietotni/",
+   "https://www.viada.lv/piedavajumi/menesa-varonis-kafija-ar-pienu-xl/"
+  ],
   "sample": 0,
   "note": "Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)"
  },
@@ -157,7 +161,7 @@
   "name": "Vianor",
   "category": "auto",
   "id": "vianor-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.nokiantyres.com",
   "url": "https://www.nokiantyres.com/",
   "status": "no-deals",
@@ -171,7 +175,7 @@
   "name": "Virši",
   "category": "auto",
   "id": "virsi-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.virsi.lv",
   "url": "https://www.virsi.lv/lv/privatpersonam",
   "status": "no-deals",
@@ -188,25 +192,24 @@
   "name": "Apotheka",
   "category": "beauty",
   "id": "apotheka-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.apotheka.lv",
   "url": "https://www.apotheka.lv/",
   "status": "auto",
   "platform": "html",
   "saleUrls": [
-   "https://www.apotheka.lv/",
-   "https://www.apotheka.lv/piedavajumi",
    "https://www.apotheka.lv/noliktavas-atlaides",
-   "https://www.apotheka.lv/piedavajumi/visi-ipasie-piedavajumi"
+   "https://www.apotheka.lv/produkti/ipasie-piedavajumi",
+   "https://www.apotheka.lv/piedavajumi/visi-ipasie-piedavajumi/menesa-piedavajumi"
   ],
-  "sample": 170
+  "sample": 98
  },
  {
   "domain": "apteka.lv",
   "name": "Apteka",
   "category": "beauty",
   "id": "apteka-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -215,7 +218,7 @@
   "name": "Aptieku alianse",
   "category": "beauty",
   "id": "aptiekualianse-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -224,7 +227,7 @@
   "name": "Benu",
   "category": "beauty",
   "id": "benu-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.benu.lv",
   "url": "https://www.benu.lv/",
   "status": "auto",
@@ -234,14 +237,14 @@
    "https://www.benu.lv/e-aptieka/noliktavas-atlaides",
    "https://www.benu.lv/bagatini-uzturu-rudeni-atlaides-lidz-50"
   ],
-  "sample": 63
+  "sample": 58
  },
  {
   "domain": "douglas.lv",
   "name": "Douglas",
   "category": "beauty",
   "id": "douglas-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.douglas.lv",
   "url": "https://www.douglas.lv/",
   "status": "auto",
@@ -252,22 +255,22 @@
    "https://www.douglas.lv/lv/outlet/",
    "https://www.douglas.lv/lv/black-friday/"
   ],
-  "sample": 102
+  "sample": 92
  },
  {
   "domain": "euroaptieka.lv",
   "name": "Euroaptieka",
   "category": "beauty",
   "id": "euroaptieka-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.euroaptieka.lv",
   "url": "https://www.euroaptieka.lv/",
   "status": "no-deals",
   "platform": "html",
   "saleLinks": [
    "https://www.euroaptieka.lv/akcijas",
-   "https://www.euroaptieka.lv/l/vel-atlaides-novembris",
-   "https://www.euroaptieka.lv/l/150-ar-50-akcija"
+   "https://www.euroaptieka.lv/l/labakas-atlaides-novembris",
+   "https://www.euroaptieka.lv/l/akcija-melna-piektdiena"
   ],
   "sample": 0,
   "note": "Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)"
@@ -277,7 +280,7 @@
   "name": "Ģimenes aptieka",
   "category": "beauty",
   "id": "gimenesaptieka-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -286,7 +289,7 @@
   "name": "Inglot",
   "category": "beauty",
   "id": "inglot-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "DEPTH_ZERO_SELF_SIGNED_CERT"
  },
@@ -295,7 +298,7 @@
   "name": "Kristiāna",
   "category": "beauty",
   "id": "kristiana-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.kristiana.lv",
   "url": "https://www.kristiana.lv/",
   "status": "auto",
@@ -304,14 +307,14 @@
    "https://www.kristiana.lv/menesa-piedavajumi",
    "https://www.kristiana.lv/akcijas"
   ],
-  "sample": 23
+  "sample": 24
  },
  {
   "domain": "lyko.lv",
   "name": "Lyko",
   "category": "beauty",
   "id": "lyko-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ERR_TLS_CERT_ALTNAME_INVALID"
  },
@@ -320,7 +323,7 @@
   "name": "Mana aptieka",
   "category": "beauty",
   "id": "manaaptieka-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://manaaptieka.lv",
   "url": "https://manaaptieka.lv/",
   "status": "no-deals",
@@ -334,7 +337,7 @@
   "name": "Mēness aptieka",
   "category": "beauty",
   "id": "menessaptieka-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.menessaptieka.lv",
   "url": "https://www.menessaptieka.lv/",
   "status": "no-deals",
@@ -348,7 +351,7 @@
   "name": "Multilukss",
   "category": "beauty",
   "id": "multilukss-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -357,7 +360,7 @@
   "name": "Notino",
   "category": "beauty",
   "id": "notino-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -366,7 +369,7 @@
   "name": "Sentor",
   "category": "beauty",
   "id": "sentor-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -375,7 +378,7 @@
   "name": "Siberika",
   "category": "beauty",
   "id": "siberika-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://siberika.lv",
   "url": "https://siberika.lv/cgi-sys/suspendedpage.cgi",
   "status": "no-deals",
@@ -389,7 +392,7 @@
   "name": "Grāmatnīca",
   "category": "books",
   "id": "gramatnica-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://gramatnica.lv",
   "url": "https://gramatnica.lv/",
   "status": "no-deals",
@@ -403,7 +406,7 @@
   "name": "Jānis Roze",
   "category": "books",
   "id": "jr-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -412,29 +415,25 @@
   "name": "Kanclers",
   "category": "books",
   "id": "kanclers-lv",
-  "checked": "2026-11-08",
+  "checked": "2026-11-22",
   "origin": "https://kanclers.lv",
   "url": "https://kanclers.lv/",
   "status": "auto",
   "platform": "html",
-  "saleLinks": [],
-  "sample": 29,
-  "note": "Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)",
   "saleUrls": [
    "https://kanclers.lv/",
    "https://kanclers.lv/velosipedi/izpardosana/velosipeds-limber-18-zils-ar-rlimc1820",
    "https://kanclers.lv/velosipedi/izpardosana/velosipeds-limber-20-grafit-ar-rlimc2030",
    "https://kanclers.lv/velosipedi/izpardosana/velosipeds-core-27-5-neozals-gbp-r015031-19"
   ],
-  "failedChecks": 1,
-  "lastCheckNote": "no-deals: Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)"
+  "sample": 29
  },
  {
   "domain": "zvaigzne.lv",
   "name": "Zvaigzne ABC",
   "category": "books",
   "id": "zvaigzne-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.zvaigzne.lv",
   "url": "https://www.zvaigzne.lv/",
   "status": "auto",
@@ -442,14 +441,14 @@
   "saleUrls": [
    "https://www.zvaigzne.lv/gramatas/gramatu-akcijas.html"
   ],
-  "sample": 22
+  "sample": 24
  },
  {
   "domain": "akcijas.lv",
   "name": "Akcijas.lv",
   "category": "deals",
   "id": "akcijas-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "EAI_AGAIN"
  },
@@ -458,21 +457,21 @@
   "name": "Atlaides.lv",
   "category": "deals",
   "id": "atlaides-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://atlaides.lv",
   "url": "https://atlaides.lv/",
   "status": "no-deals",
   "platform": "html",
   "saleLinks": [],
   "sample": 0,
-  "note": "Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)"
+  "note": "Публичных цен со скидкой не найдено (акции в PDF/картинках/приложении)"
  },
  {
   "domain": "cenuklubs.lv",
   "name": "Cenu klubs",
   "category": "deals",
   "id": "cenuklubs-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://cenuklubs.lv",
   "url": "https://cenuklubs.lv/",
   "status": "no-deals",
@@ -486,7 +485,7 @@
   "name": "Cido",
   "category": "deals",
   "id": "cido-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "UND_ERR_CONNECT_TIMEOUT"
  },
@@ -495,7 +494,7 @@
   "name": "Iepirkumi.lv",
   "category": "deals",
   "id": "iepirkumi-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.iepirkumi.lv",
   "url": "https://www.iepirkumi.lv/",
   "status": "no-deals",
@@ -509,15 +508,15 @@
   "name": "Kimbino (каталоги)",
   "category": "deals",
   "id": "kimbino-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.kimbino.lv",
   "url": "https://www.kimbino.lv/",
   "status": "no-deals",
   "platform": "html",
   "saleLinks": [
    "https://www.kimbino.lv/promo/",
-   "https://www.kimbino.lv/lidl/lidl-akciju-buklets-no-pirmdienas-16-11-2026-6004221/",
-   "https://www.kimbino.lv/lidl/lidl-nepartikas-precu-piedavajums-no-pirmdienas-16-11-2026-6004222/"
+   "https://www.kimbino.lv/lidl/lidl-black-friday-nepartikas-precu-piedavajums-no-pirmdienas-23-11-2026-6004272/",
+   "https://www.kimbino.lv/top/top-akciju-buklets-no-piektdienas-20-11-2026-6004265/"
   ],
   "sample": 0,
   "note": "Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)"
@@ -527,7 +526,7 @@
   "name": "Kuponi.lv",
   "category": "deals",
   "id": "kuponi-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ERR_TLS_CERT_ALTNAME_INVALID"
  },
@@ -536,7 +535,7 @@
   "name": "Kurpirkt.lv",
   "category": "deals",
   "id": "kurpirkt-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -545,7 +544,7 @@
   "name": "LetsGo",
   "category": "deals",
   "id": "letsgo-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -554,7 +553,7 @@
   "name": "Perkam.lv",
   "category": "deals",
   "id": "perkam-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://perkam.lv",
   "url": "https://perkam.lv/",
   "status": "no-deals",
@@ -568,7 +567,7 @@
   "name": "Pricer.lv",
   "category": "deals",
   "id": "pricer-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -577,7 +576,7 @@
   "name": "Promokodi.lv",
   "category": "deals",
   "id": "promokodi-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -586,7 +585,7 @@
   "name": "Salidzini.lv",
   "category": "deals",
   "id": "salidzini-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -595,7 +594,7 @@
   "name": "Tiendeo",
   "category": "deals",
   "id": "tiendeo-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -604,7 +603,7 @@
   "name": "Vietas",
   "category": "deals",
   "id": "vietas-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -613,7 +612,7 @@
   "name": "VisasAkcijas.lv",
   "category": "deals",
   "id": "visasakcijas-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.visasakcijas.lv",
   "url": "https://www.visasakcijas.lv/",
   "status": "no-deals",
@@ -631,7 +630,7 @@
   "name": "Bolt Food",
   "category": "delivery",
   "id": "food-bolt-eu",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://food.bolt.eu",
   "url": "https://food.bolt.eu/",
   "status": "no-deals",
@@ -645,7 +644,7 @@
   "name": "Wolt",
   "category": "delivery",
   "id": "wolt-com",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://wolt.com",
   "url": "https://wolt.com/",
   "status": "no-deals",
@@ -659,7 +658,7 @@
   "name": "220.lv",
   "category": "electronics",
   "id": "220-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://220.lv",
   "url": "https://220.lv/lv/",
   "status": "blocked",
@@ -667,7 +666,7 @@
   "saleLinks": [
    "https://220.lv/lv/super/outlet",
    "https://220.lv/lv/lapaspuse/marketplace-ipasie-piedavajumi",
-   "https://220.lv/lv/u/discounts"
+   "https://220.lv/lv/super/black-friday?source=HeaderRunningLine"
   ],
   "sample": 0,
   "note": "проверка бота (в браузере)"
@@ -677,7 +676,7 @@
   "name": "AiO.lv",
   "category": "electronics",
   "id": "aio-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -686,7 +685,7 @@
   "name": "Dateks",
   "category": "electronics",
   "id": "dateks-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -695,16 +694,16 @@
   "name": "Datorcentrs",
   "category": "electronics",
   "id": "datorcentrs-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
-  "note": "UND_ERR_CONNECT_TIMEOUT"
+  "note": "EHOSTUNREACH"
  },
  {
   "domain": "elkor.lv",
   "name": "Elkor",
   "category": "electronics",
   "id": "elkor-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "fetch failed"
  },
@@ -713,28 +712,24 @@
   "name": "Euronics",
   "category": "electronics",
   "id": "euronics-lv",
-  "checked": "2026-11-08",
+  "checked": "2026-11-22",
   "origin": "https://www.euronics.lv",
   "url": "https://www.euronics.lv/",
   "status": "auto",
   "platform": "html",
-  "saleLinks": [],
-  "sample": 10,
-  "note": "проверка бота (в браузере)",
   "saleUrls": [
-   "https://www.euronics.lv/jaunumi/melna-menesa-piedavajumi-10-lieliskas-idejas-majai-un-davanam"
+   "https://www.euronics.lv/jaunumi/melnas-piektdienas-piedavajumi-10-izdevigi-pirkumi"
   ],
-  "failedChecks": 1,
-  "lastCheckNote": "blocked: проверка бота (в браузере)"
+  "sample": 9
  },
  {
   "domain": "gigant.lv",
   "name": "Gigant",
   "category": "electronics",
   "id": "gigant-lv",
-  "checked": "2026-11-15",
-  "origin": "https://gigant.lv",
-  "url": "https://gigant.lv/",
+  "checked": "2026-11-22",
+  "origin": "https://www.gigant.lv",
+  "url": "https://www.gigant.lv/",
   "status": "no-deals",
   "platform": "html",
   "saleLinks": [],
@@ -746,7 +741,7 @@
   "name": "iDeal",
   "category": "electronics",
   "id": "ideal-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://cec.lv",
   "url": "https://cec.lv/",
   "status": "no-deals",
@@ -760,7 +755,7 @@
   "name": "iStore",
   "category": "electronics",
   "id": "istore-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -769,7 +764,7 @@
   "name": "Mi Store",
   "category": "electronics",
   "id": "mistore-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -778,7 +773,7 @@
   "name": "Ordi",
   "category": "electronics",
   "id": "ordi-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -787,7 +782,7 @@
   "name": "RD Electronics",
   "category": "electronics",
   "id": "rdveikals-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -796,7 +791,7 @@
   "name": "Techshop",
   "category": "electronics",
   "id": "techshop-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -805,7 +800,7 @@
   "name": "Topelectronic",
   "category": "electronics",
   "id": "topelectronic-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -814,7 +809,7 @@
   "name": "Varle",
   "category": "electronics",
   "id": "varle-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://varle.lv",
   "url": "https://varle.lv/",
   "status": "no-deals",
@@ -828,7 +823,7 @@
   "name": "Apranga",
   "category": "fashion",
   "id": "apranga-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://soulz.lt",
   "url": "https://soulz.lt/lt",
   "status": "no-deals",
@@ -842,7 +837,7 @@
   "name": "Bikkembergs",
   "category": "fashion",
   "id": "bikkembergs-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -851,7 +846,7 @@
   "name": "CCC",
   "category": "fashion",
   "id": "ccc-eu-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://ccc.eu",
   "url": "https://ccc.eu/lv/lv/",
   "status": "no-deals",
@@ -865,7 +860,7 @@
   "name": "Deichmann",
   "category": "fashion",
   "id": "deichmann-com-lv-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "HTTP 404"
  },
@@ -874,7 +869,7 @@
   "name": "Denim Dream",
   "category": "fashion",
   "id": "denimdream-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -883,7 +878,7 @@
   "name": "ECCO",
   "category": "fashion",
   "id": "ecco-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.fruits.co",
   "url": "https://www.fruits.co/en/domain/ecco.lv",
   "status": "no-deals",
@@ -897,7 +892,7 @@
   "name": "Euroskor",
   "category": "fashion",
   "id": "euroskor-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ERR_TLS_CERT_ALTNAME_INVALID"
  },
@@ -906,7 +901,7 @@
   "name": "Glamour",
   "category": "fashion",
   "id": "glamour-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -915,7 +910,7 @@
   "name": "H&M",
   "category": "fashion",
   "id": "hm-com-lv-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -924,7 +919,7 @@
   "name": "KappAhl",
   "category": "fashion",
   "id": "kappahl-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ERR_TLS_CERT_ALTNAME_INVALID"
  },
@@ -933,7 +928,7 @@
   "name": "Lindex",
   "category": "fashion",
   "id": "lindex-com-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -942,7 +937,7 @@
   "name": "Lindex",
   "category": "fashion",
   "id": "lindex-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -951,7 +946,7 @@
   "name": "Mohito",
   "category": "fashion",
   "id": "mohito-com-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.mohito.com",
   "url": "https://www.mohito.com/special/store/?nolang=true",
   "status": "no-deals",
@@ -965,7 +960,7 @@
   "name": "New Yorker",
   "category": "fashion",
   "id": "newyorker-de-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.newyorker.de",
   "url": "https://www.newyorker.de/lv/",
   "status": "no-deals",
@@ -979,7 +974,7 @@
   "name": "Pink Panther",
   "category": "fashion",
   "id": "pinkpanther-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -988,7 +983,7 @@
   "name": "Reserved",
   "category": "fashion",
   "id": "reserved-com-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.reserved.com",
   "url": "https://www.reserved.com/special/store/?nolang=true",
   "status": "no-deals",
@@ -1002,7 +997,7 @@
   "name": "Sinsay",
   "category": "fashion",
   "id": "sinsay-com-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.sinsay.com",
   "url": "https://www.sinsay.com/special/store/?nolang=true",
   "status": "no-deals",
@@ -1016,7 +1011,7 @@
   "name": "Takko",
   "category": "fashion",
   "id": "takko-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.takko.com",
   "url": "https://www.takko.com/",
   "status": "no-deals",
@@ -1030,7 +1025,7 @@
   "name": "Zara",
   "category": "fashion",
   "id": "zara-com-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -1039,7 +1034,7 @@
   "name": "Burger King",
   "category": "fastfood",
   "id": "burgerking-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://burgerking.lv",
   "url": "https://burgerking.lv/",
   "status": "no-deals",
@@ -1055,7 +1050,7 @@
   "name": "Caffeine",
   "category": "fastfood",
   "id": "caffeine-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://caffeine.lv",
   "url": "https://caffeine.lv/",
   "status": "no-deals",
@@ -1067,7 +1062,7 @@
   "name": "Čili Pica",
   "category": "fastfood",
   "id": "cilipica-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ERR_TLS_CERT_ALTNAME_INVALID"
  },
@@ -1076,7 +1071,7 @@
   "name": "Domino's",
   "category": "fastfood",
   "id": "dominos-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://dominospizza.lv",
   "url": "https://dominospizza.lv/lv/riga/",
   "status": "blocked",
@@ -1090,7 +1085,7 @@
   "name": "Hesburger",
   "category": "fastfood",
   "id": "hesburger-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.hesburger.lv",
   "url": "https://www.hesburger.lv/",
   "status": "no-deals",
@@ -1106,7 +1101,7 @@
   "name": "KFC",
   "category": "fastfood",
   "id": "kfc-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://kfc.lv",
   "url": "https://kfc.lv/",
   "status": "no-deals",
@@ -1124,7 +1119,7 @@
   "name": "Lido",
   "category": "fastfood",
   "id": "lido-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.lido.lv",
   "url": "https://www.lido.lv/lv/",
   "status": "blocked",
@@ -1140,7 +1135,7 @@
   "name": "Pica Lulū",
   "category": "fastfood",
   "id": "picalulu-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1149,7 +1144,7 @@
   "name": "Pizza Jazz",
   "category": "fastfood",
   "id": "pizzajazz-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1158,16 +1153,16 @@
   "name": "Subway",
   "category": "fastfood",
   "id": "subway-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
-  "note": "UND_ERR_CONNECT_TIMEOUT"
+  "note": "EAI_AGAIN"
  },
  {
   "domain": "vapiano.lv",
   "name": "Vapiano",
   "category": "fastfood",
   "id": "vapiano-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://vapiano.lv",
   "url": "https://vapiano.lv/",
   "status": "no-deals",
@@ -1181,7 +1176,7 @@
   "name": "Apollo Kino",
   "category": "fun",
   "id": "apollokino-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -1190,7 +1185,7 @@
   "name": "Biļešu serviss",
   "category": "fun",
   "id": "bilesuserviss-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.bilesuserviss.lv",
   "url": "https://www.bilesuserviss.lv/",
   "status": "no-deals",
@@ -1208,7 +1203,7 @@
   "name": "Cinamon",
   "category": "fun",
   "id": "cinamon-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1217,7 +1212,7 @@
   "name": "Forum Cinemas",
   "category": "fun",
   "id": "forumcinemas-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -1226,7 +1221,7 @@
   "name": "Līvu akvaparks",
   "category": "fun",
   "id": "livuakvaparks-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1235,7 +1230,7 @@
   "name": "Ticketshop",
   "category": "fun",
   "id": "ticketshop-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://ticketshop.lv",
   "url": "https://ticketshop.lv/lv",
   "status": "no-deals",
@@ -1249,7 +1244,7 @@
   "name": "Aibe",
   "category": "groceries",
   "id": "aibe-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -1258,47 +1253,39 @@
   "name": "Alkoutlet",
   "category": "groceries",
   "id": "alkoutlet-lv",
-  "checked": "2026-11-08",
+  "checked": "2026-11-22",
   "origin": "https://alkoutlet.lv",
   "url": "https://alkoutlet.lv/",
   "status": "auto",
   "platform": "html",
-  "saleLinks": [
-   "https://alkoutlet.lv/par-alkoutlet",
-   "https://alkoutlet.lv/blog/category/alkoutlet-shake",
-   "https://alkoutlet.lv/vina-skola"
-  ],
-  "sample": 5,
-  "note": "проверка бота (в браузере)",
   "saleUrls": [
    "https://alkoutlet.lv/",
-   "https://alkoutlet.lv/krekls-alkoutlet-unisex-wine-tasting-balts.html"
+   "https://alkoutlet.lv/krekls-alkoutlet-unisex-austere-isais.html"
   ],
-  "failedChecks": 1,
-  "lastCheckNote": "blocked: проверка бота (в браузере)"
+  "sample": 4
  },
  {
   "domain": "barbora.lv",
   "name": "Barbora",
   "category": "groceries",
   "id": "barbora-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://barbora.lv",
   "url": "https://barbora.lv/",
   "status": "auto",
   "platform": "html",
   "saleUrls": [
    "https://barbora.lv/",
-   "https://barbora.lv/cl/20TJ/labakie-piedavajumi-46"
+   "https://barbora.lv/cl/WOEO/labakie-piedavajumi-47"
   ],
-  "sample": 70
+  "sample": 66
  },
  {
   "domain": "citro.lv",
   "name": "Citro",
   "category": "groceries",
   "id": "citro-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://citro.lv",
   "url": "https://citro.lv/",
   "status": "no-deals",
@@ -1314,7 +1301,7 @@
   "name": "Elvi",
   "category": "groceries",
   "id": "elvi-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://elvi.lv",
   "url": "https://elvi.lv/",
   "status": "no-deals",
@@ -1332,9 +1319,9 @@
   "name": "Gardumi",
   "category": "groceries",
   "id": "gardumi-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://gardumi.lv",
-  "url": "https://gardumi.lv/par-mums",
+  "url": "https://gardumi.lv/",
   "status": "no-deals",
   "platform": "html",
   "saleLinks": [],
@@ -1346,7 +1333,7 @@
   "name": "LaTS",
   "category": "groceries",
   "id": "lats-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "HTTP 405"
  },
@@ -1355,7 +1342,7 @@
   "name": "Latvijas Balzams",
   "category": "groceries",
   "id": "latvijasbalzams-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ERR_TLS_CERT_ALTNAME_INVALID"
  },
@@ -1364,7 +1351,7 @@
   "name": "Mego",
   "category": "groceries",
   "id": "mego-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://mego.lv",
   "url": "https://mego.lv/",
   "status": "no-deals",
@@ -1380,7 +1367,7 @@
   "name": "Narvesen",
   "category": "groceries",
   "id": "narvesen-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://narvesen.lv",
   "url": "https://narvesen.lv/",
   "status": "no-deals",
@@ -1392,7 +1379,7 @@
   "name": "Nuko",
   "category": "groceries",
   "id": "nuko-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -1401,7 +1388,7 @@
   "name": "Promo Cash&Carry",
   "category": "groceries",
   "id": "promo-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1410,7 +1397,7 @@
   "name": "Spirits & Wine",
   "category": "groceries",
   "id": "spiritsandwine-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.spiritsandwine.lv",
   "url": "https://www.spiritsandwine.lv/",
   "status": "no-deals",
@@ -1426,7 +1413,7 @@
   "name": "top!",
   "category": "groceries",
   "id": "top-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.top.lv",
   "url": "https://www.top.lv/",
   "status": "no-deals",
@@ -1440,7 +1427,7 @@
   "name": "Vesko",
   "category": "groceries",
   "id": "vesko-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1449,7 +1436,7 @@
   "name": "Vynoteka",
   "category": "groceries",
   "id": "vynoteka-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://vynoteka.lv",
   "url": "https://vynoteka.lv/",
   "status": "no-deals",
@@ -1467,7 +1454,7 @@
   "name": "Avoti",
   "category": "home",
   "id": "avoti-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.avoti.lv",
   "url": "https://www.avoti.lv/",
   "status": "no-deals",
@@ -1481,7 +1468,7 @@
   "name": "Depo",
   "category": "home",
   "id": "depo-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://depo.lv",
   "url": "https://depo.lv/",
   "status": "no-deals",
@@ -1495,25 +1482,25 @@
   "name": "Home4you",
   "category": "home",
   "id": "home4you-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.home4you.lv",
-  "url": "https://www.home4you.lv/lv/",
+  "url": "https://www.home4you.lv/",
   "status": "auto",
   "platform": "html",
   "saleUrls": [
-   "https://www.home4you.lv/lv/",
    "https://www.home4you.lv/lv/ziemassvetku-piedavajumi",
    "https://www.home4you.lv/lv/darza-mebelu-izpardosana/",
-   "https://www.home4you.lv/lv/piedavajumi/"
+   "https://www.home4you.lv/lv/piedavajumi/",
+   "https://www.home4you.lv/lv/labakie-piedavajumi/"
   ],
-  "sample": 129
+  "sample": 142
  },
  {
   "domain": "ikea.lv",
   "name": "IKEA",
   "category": "home",
   "id": "ikea-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -1522,7 +1509,7 @@
   "name": "Jumbo",
   "category": "home",
   "id": "jumbo-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1531,7 +1518,7 @@
   "name": "JYSK",
   "category": "home",
   "id": "jysk-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -1540,7 +1527,7 @@
   "name": "Krūza",
   "category": "home",
   "id": "kruza-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -1549,7 +1536,7 @@
   "name": "Ksenukai",
   "category": "home",
   "id": "ksenukai-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -1558,7 +1545,7 @@
   "name": "Kurši",
   "category": "home",
   "id": "kursi-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -1567,7 +1554,7 @@
   "name": "Lilija",
   "category": "home",
   "id": "lilija-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://lilija.lv",
   "url": "https://lilija.lv/",
   "status": "no-deals",
@@ -1581,7 +1568,7 @@
   "name": "Mājai un dārzam",
   "category": "home",
   "id": "majaiundarzam-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://majaiundarzam.lv",
   "url": "https://majaiundarzam.lv/",
   "status": "blocked",
@@ -1595,7 +1582,7 @@
   "name": "Mēbeles1",
   "category": "home",
   "id": "mebeles1-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -1604,15 +1591,13 @@
   "name": "Pepco",
   "category": "home",
   "id": "pepco-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://pepco.lv",
   "url": "https://pepco.lv/",
   "status": "blocked",
   "platform": "html",
   "saleLinks": [
-   "https://pepco.lv/sale-special-offers",
-   "https://pepco.lv/kolekcijas/top-piedavajumi",
-   "https://pepco.lv/kolekcijas/top-piedavajumi/"
+   "https://pepco.lv/kolekcijas/top-piedavajumi"
   ],
   "sample": 0,
   "note": "проверка бота (в браузере)"
@@ -1622,7 +1607,7 @@
   "name": "Pigu",
   "category": "home",
   "id": "pigu-lt-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -1631,7 +1616,7 @@
   "name": "Sanistal",
   "category": "home",
   "id": "sanistal-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ECONNREFUSED"
  },
@@ -1640,7 +1625,7 @@
   "name": "Super Selection",
   "category": "home",
   "id": "superselection-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -1649,7 +1634,7 @@
   "name": "TEDi",
   "category": "home",
   "id": "tedi-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1658,7 +1643,7 @@
   "name": "Baby City",
   "category": "kids",
   "id": "babycity-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.babycity.lv",
   "url": "https://www.babycity.lv/lv/",
   "status": "auto",
@@ -1666,9 +1651,9 @@
   "saleLinks": [
    "https://www.babycity.lv/lv/visas-akcijas",
    "https://www.babycity.lv/lv/izpardosana-atlaides-nesummejas-un-attiecas-uz-noteiktam-precem/0525",
-   "https://www.babycity.lv/lv/mothercare-noliktavas-izpardosana/1126"
+   "https://www.babycity.lv/lv/black-friday-2026"
   ],
-  "sample": 76,
+  "sample": 40,
   "note": "Страница распродажи (рендер в браузере), цены и срок из пометки «Regulārā cena / Akcija derīga līdz»",
   "saleUrls": [
    "https://www.babycity.lv/lv/izpardosana-atlaides-nesummejas-un-attiecas-uz-noteiktam-precem/0525"
@@ -1680,7 +1665,7 @@
   "name": "Babyland",
   "category": "kids",
   "id": "babyland-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1689,7 +1674,7 @@
   "name": "Babyshop",
   "category": "kids",
   "id": "babyshop-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "CERT_HAS_EXPIRED"
  },
@@ -1698,7 +1683,7 @@
   "name": "Bebe",
   "category": "kids",
   "id": "bebe-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "UND_ERR_SOCKET"
  },
@@ -1707,13 +1692,15 @@
   "name": "Bērnu pasaule",
   "category": "kids",
   "id": "bernupasaule-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://bernupasaule.lv",
   "url": "https://bernupasaule.lv/",
   "status": "no-deals",
   "platform": "html",
-  "saleLinks": [],
-  "sample": 0,
+  "saleLinks": [
+   "https://bernupasaule.lv/produkti/akcijas"
+  ],
+  "sample": 2,
   "note": "Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)"
  },
  {
@@ -1721,7 +1708,7 @@
   "name": "Bērnu preces",
   "category": "kids",
   "id": "bernuprecesrig-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1730,7 +1717,7 @@
   "name": "Bērnu preces online",
   "category": "kids",
   "id": "bernuprecesonline-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1739,7 +1726,7 @@
   "name": "Bērnu veikals",
   "category": "kids",
   "id": "bernuveikals-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -1748,7 +1735,7 @@
   "name": "Ciao Bimbi",
   "category": "kids",
   "id": "ciaobimbi-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1757,21 +1744,16 @@
   "name": "Gudrinieks",
   "category": "kids",
   "id": "gudrinieks-lv",
-  "checked": "2026-11-15",
-  "origin": "https://gudrinieks.lv",
-  "url": "https://gudrinieks.lv/",
-  "status": "no-deals",
-  "platform": "html",
-  "saleLinks": [],
-  "sample": 0,
-  "note": "Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)"
+  "checked": "2026-11-22",
+  "status": "unavailable",
+  "note": "HTTP 404"
  },
  {
   "domain": "kidi.lv",
   "name": "Kidi",
   "category": "kids",
   "id": "kidi-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://kidi.lv",
   "url": "https://kidi.lv/",
   "status": "no-deals",
@@ -1785,7 +1767,7 @@
   "name": "Kids World",
   "category": "kids",
   "id": "kidsworld-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1794,7 +1776,7 @@
   "name": "Kidshop",
   "category": "kids",
   "id": "kidshop-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1803,7 +1785,7 @@
   "name": "Kidsland",
   "category": "kids",
   "id": "kidsland-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1812,7 +1794,7 @@
   "name": "Krabis",
   "category": "kids",
   "id": "krabis-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "EAI_AGAIN"
  },
@@ -1821,7 +1803,7 @@
   "name": "LEGO Store",
   "category": "kids",
   "id": "legostore-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1830,7 +1812,7 @@
   "name": "Lelle",
   "category": "kids",
   "id": "lelle-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://lelle.lv",
   "url": "https://lelle.lv/",
   "status": "no-deals",
@@ -1844,7 +1826,7 @@
   "name": "Lupilu",
   "category": "kids",
   "id": "lupilu-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1853,7 +1835,7 @@
   "name": "Mammām un bērniem",
   "category": "kids",
   "id": "mammasunbernu-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1862,7 +1844,7 @@
   "name": "Mazulis",
   "category": "kids",
   "id": "mazulis-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "UND_ERR_SOCKET"
  },
@@ -1871,7 +1853,7 @@
   "name": "Mimikid",
   "category": "kids",
   "id": "mimikid-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://mimikid.lv",
   "url": "https://mimikid.lv/",
   "status": "auto",
@@ -1880,14 +1862,14 @@
    "https://mimikid.lv/",
    "https://mimikid.lv/index.php?route=product/special"
   ],
-  "sample": 15
+  "sample": 18
  },
  {
   "domain": "mothercare.lv",
   "name": "Mothercare",
   "category": "kids",
   "id": "mothercare-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.babycity.lv",
   "url": "https://www.babycity.lv/lv/mothercare",
   "status": "auto",
@@ -1896,7 +1878,7 @@
    "https://www.babycity.lv/lv/visas-akcijas",
    "https://www.babycity.lv/lv/izpardosana-atlaides-nesummejas-un-attiecas-uz-noteiktam-precem/0525"
   ],
-  "sample": 66,
+  "sample": 64,
   "saleUrls": [
    "https://www.babycity.lv/lv/mothercare",
    "https://www.babycity.lv/lv/izpardosana-atlaides-nesummejas-un-attiecas-uz-noteiktam-precem/0525"
@@ -1907,7 +1889,7 @@
   "name": "Nordbaby",
   "category": "kids",
   "id": "nordbaby-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://nordbaby.lv",
   "url": "https://nordbaby.lv/",
   "status": "no-deals",
@@ -1921,7 +1903,7 @@
   "name": "Rotaļlietas.lv",
   "category": "kids",
   "id": "rotallietas-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "EAI_AGAIN"
  },
@@ -1930,7 +1912,7 @@
   "name": "Rotaļu",
   "category": "kids",
   "id": "rotalu-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1939,7 +1921,7 @@
   "name": "Skyhunters",
   "category": "kids",
   "id": "skyhunters-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://skyhunters.lv",
   "url": "https://skyhunters.lv/",
   "status": "auto",
@@ -1948,14 +1930,14 @@
    "https://skyhunters.lv/",
    "https://skyhunters.lv/index.php?route=product/special"
   ],
-  "sample": 15
+  "sample": 16
  },
  {
   "domain": "smart-kids.lv",
   "name": "Smart Kids",
   "category": "kids",
   "id": "smart-kids-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1964,7 +1946,7 @@
   "name": "Toys.lv",
   "category": "kids",
   "id": "toys-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "UND_ERR_CONNECT_TIMEOUT"
  },
@@ -1973,7 +1955,7 @@
   "name": "Tutu",
   "category": "kids",
   "id": "tutu-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -1982,7 +1964,7 @@
   "name": "Dino Zoo",
   "category": "pets",
   "id": "dinozoo-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.dinozoo.lv",
   "url": "https://www.dinozoo.lv/",
   "status": "auto",
@@ -2000,7 +1982,7 @@
   "name": "Pet City",
   "category": "pets",
   "id": "petcity-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.petcity.lv",
   "url": "https://www.petcity.lv/",
   "status": "no-deals",
@@ -2008,7 +1990,7 @@
   "saleLinks": [
    "https://www.petcity.lv/akcija",
    "https://www.petcity.lv/akcija/petcity-draugs-menesa-piedavajums",
-   "https://www.petcity.lv/akcija?cat%5B%5D=8452&cat%5B%5D=8444"
+   "https://www.petcity.lv/akcija/perc-vairak-maksa-mazak"
   ],
   "sample": 0,
   "note": "Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)"
@@ -2018,7 +2000,7 @@
   "name": "Zoocentrs",
   "category": "pets",
   "id": "zoocentrs-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://zoocentrs.lv",
   "url": "https://zoocentrs.lv/",
   "status": "auto",
@@ -2029,14 +2011,14 @@
    "https://zoocentrs.lv/akcija/jaunakas_preces",
    "https://zoocentrs.lv/akcija/super_piedavajumi"
   ],
-  "sample": 101
+  "sample": 100
  },
  {
   "domain": "zoomaxi.lv",
   "name": "Zoomaxi",
   "category": "pets",
   "id": "zoomaxi-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -2045,7 +2027,7 @@
   "name": "Adidas",
   "category": "sport",
   "id": "adidas-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "CERT_HAS_EXPIRED"
  },
@@ -2054,7 +2036,7 @@
   "name": "Decathlon",
   "category": "sport",
   "id": "decathlon-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "blocked",
   "note": "HTTP 403, проверка бота"
  },
@@ -2063,7 +2045,7 @@
   "name": "Intersport",
   "category": "sport",
   "id": "intersport-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ERR_SSL_TLSV1_UNRECOGNIZED_NAME"
  },
@@ -2072,7 +2054,7 @@
   "name": "Nike",
   "category": "sport",
   "id": "nike-com-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "HTTP 500"
  },
@@ -2081,7 +2063,7 @@
   "name": "Rademar",
   "category": "sport",
   "id": "rademar-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -2097,33 +2079,28 @@
   "platform": "browser",
   "saleLinks": [],
   "sample": 4,
+  "note": "Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)",
   "saleUrls": [
    "https://sportland.lv/"
-  ]
+  ],
+  "failedChecks": 1,
+  "lastCheckNote": "no-deals: Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)"
  },
  {
   "domain": "sportsdirect.lv",
   "name": "Sports Direct",
   "category": "sport",
   "id": "sportsdirect-lv",
-  "checked": "2026-11-15",
-  "origin": "https://www.sportsdirect.lv",
-  "url": "https://www.sportsdirect.lv/",
-  "status": "no-deals",
-  "platform": "html",
-  "saleLinks": [
-   "https://www.sportsdirect.lv/daily-deals",
-   "https://www.sportsdirect.lv/sale"
-  ],
-  "sample": 0,
-  "note": "Публичных цен со скидкой не найдено (акции в PDF/картинках/приложении)"
+  "checked": "2026-11-22",
+  "status": "blocked",
+  "note": "HTTP 403, проверка бота"
  },
  {
   "domain": "sportsshop.lv",
   "name": "Sportsshop",
   "category": "sport",
   "id": "sportsshop-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -2132,7 +2109,7 @@
   "name": "Veloprieks",
   "category": "sport",
   "id": "veloprieks-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "status": "unavailable",
   "note": "ENOTFOUND"
  },
@@ -2141,7 +2118,7 @@
   "name": "XXL",
   "category": "sport",
   "id": "xxl-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://xxl.lv",
   "url": "https://xxl.lv/",
   "status": "no-deals",
@@ -2156,31 +2133,43 @@
   "category": "telecom",
   "id": "bite-lv",
   "checked": "2026-11-15",
+  "status": "auto",
+  "note": "HTTP 403, проверка бота",
   "origin": "https://www.bite.lv",
   "url": "https://www.bite.lv/lv",
-  "status": "auto",
   "platform": "html",
   "saleUrls": [
    "https://www.bite.lv/lv/akcijas",
    "https://www.bite.lv/lv/noliktavas-izpardosana"
   ],
-  "sample": 86
+  "sample": 86,
+  "failedChecks": 1,
+  "lastCheckNote": "blocked: HTTP 403, проверка бота"
  },
  {
   "domain": "lmt.lv",
   "name": "LMT",
   "category": "telecom",
   "id": "lmt-lv",
-  "checked": "2026-11-15",
-  "status": "unavailable",
-  "note": "ECONNRESET"
+  "checked": "2026-11-22",
+  "origin": "https://www.lmt.lv",
+  "url": "https://www.lmt.lv/",
+  "status": "no-deals",
+  "platform": "html",
+  "saleLinks": [
+   "https://www.lmt.lv/akcijas",
+   "https://www.lmt.lv/veikals/izpardosana",
+   "https://www.lmt.lv/akcijas/melna-piektdiena?utm_source=lmt&utm_medium=owned&utm_content=giga&utm_campaign=261116_iekartas_black_friday"
+  ],
+  "sample": 0,
+  "note": "Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)"
  },
  {
   "domain": "tele2.lv",
   "name": "Tele2",
   "category": "telecom",
   "id": "tele2-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.tele2.lv",
   "url": "https://www.tele2.lv/",
   "status": "no-deals",
@@ -2198,7 +2187,7 @@
   "name": "Tet",
   "category": "telecom",
   "id": "tet-lv",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.tet.lv",
   "url": "https://www.tet.lv/",
   "status": "no-deals",
@@ -2216,15 +2205,15 @@
   "name": "airBaltic",
   "category": "travel",
   "id": "airbaltic-com",
-  "checked": "2026-11-15",
+  "checked": "2026-11-22",
   "origin": "https://www.airbaltic.com",
   "url": "https://www.airbaltic.com/en/index",
   "status": "no-deals",
   "platform": "html",
   "saleLinks": [
    "https://www.airbaltic.com/en/flight-deals/flights",
-   "https://www.airbaltic.com/en/campaign/sale",
-   "https://www.airbaltic.com/en/flight-deals/flights-to-kuusamo"
+   "https://www.airbaltic.com/en/flight-deals/flights-to-kuusamo",
+   "https://www.airbaltic.com/en/flight-deals/flights-to-alicante"
   ],
   "sample": 0,
   "note": "Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)"
@@ -2234,15 +2223,8 @@
   "name": "Pasažieru vilciens",
   "category": "travel",
   "id": "pv-lv",
-  "checked": "2026-11-15",
-  "origin": "https://www.vivi.lv",
-  "url": "https://www.vivi.lv/lv/",
-  "status": "no-deals",
-  "platform": "html",
-  "saleLinks": [
-   "https://vivi.lv/lv/izmainas-un-jaunumi/jaunumi/336/ar-miniona-braucienu-vilciena-aizsakas-vivi-un-forum-cinemas-sadarbiba/"
-  ],
-  "sample": 0,
-  "note": "Цен со скидкой на сайте не найдено даже в браузере (акции в PDF/картинках/приложении)"
+  "checked": "2026-11-22",
+  "status": "blocked",
+  "note": "HTTP 403, проверка бота"
  }
 ]
